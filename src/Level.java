@@ -43,11 +43,19 @@ public class Level {
         this.tiles = tiles;
     }
 
+    public int[][] getMap() {
+        return map;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
+
     public void createTiles() {
         try {
             tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/hneda.png")), TileType.PATH));
             tileTypes.put("grass", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/zelena.png")), TileType.GRASS));
-            enemies.add(new Enemy(0,0));
+            enemies.add(new Enemy(1,0));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -95,7 +103,7 @@ public class Level {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
         //mysli si to ze x je 75
-        g2D.fillOval(enemies.get(0).getX(), enemies.get(0).getY(), 75,75);
+        g2D.fillOval(enemies.get(0).getX()*75, enemies.get(0).getY()*75, 75,75);
         movement.move(enemies.get(0),this);
 
     }
