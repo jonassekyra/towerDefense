@@ -1,8 +1,30 @@
 public class Enemy {
     private int x;
     private int y;
-    private int lastX;
-    private int lastY;
+
+    private int endX;
+    private int endY;
+
+
+    public Enemy() {
+    }
+
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public void setEndX(int endX) {
+        this.endX = endX;
+    }
+
+    public int getEndY() {
+        return endY;
+    }
+
+    public void setEndY(int endY) {
+        this.endY = endY;
+    }
 
     public Enemy(int x, int y) {
         this.x = x;
@@ -11,22 +33,6 @@ public class Enemy {
 
     public int getX() {
         return x;
-    }
-
-    public int getLastY() {
-        return lastY;
-    }
-
-    public void setLastY(int lastY) {
-        this.lastY = lastY;
-    }
-
-    public int getLastX() {
-        return lastX;
-    }
-
-    public void setLastX(int lastX) {
-        this.lastX = lastX;
     }
 
     public void setX(int x) {
@@ -40,5 +46,6 @@ public class Enemy {
     public void setY(int y) {
         this.y = y;
     }
+
 
 }
