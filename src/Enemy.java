@@ -1,14 +1,21 @@
 public class Enemy {
     private int x;
     private int y;
-
     private int endX;
     private int endY;
+    private boolean hasStarted = false;
 
 
     public Enemy() {
     }
 
+    public boolean isHasStarted() {
+        return hasStarted;
+    }
+
+    public void setHasStarted(boolean hasStarted) {
+        this.hasStarted = hasStarted;
+    }
 
     public int getEndX() {
         return endX;

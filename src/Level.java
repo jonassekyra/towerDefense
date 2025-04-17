@@ -119,10 +119,17 @@ public class Level {
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
-
-
-        movement.move(enemies.get(0),this);
         g2D.fillOval(enemies.get(0).getX()*75, enemies.get(0).getY()*75, 75,75);
+
+        if (enemies.get(0).isHasStarted()){
+            movement.move(enemies.get(0),this);
+        }else{
+            enemies.get(0).setHasStarted(true);
+
+        }
+
+
+
 
 
     }
