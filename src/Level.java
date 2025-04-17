@@ -55,7 +55,7 @@ public class Level {
         try {
             tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/hneda.png")), TileType.PATH));
             tileTypes.put("grass", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/zelena.png")), TileType.GRASS));
-            enemies.add(new Enemy(1,0));
+            //enemies.add(new Enemy(0,0));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,25 +63,41 @@ public class Level {
 
     public void loadLevel() {
         try (BufferedReader br = new BufferedReader(new FileReader("Map.txt"))) {
+            Enemy enemy = new Enemy();
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
-                String[] split = line.split(" ");
-                for (int i = 0; i < split.length; i++) {
-                    switch (split[i]) {
-                        case "0":
-                            tiles[i][row] = tileTypes.get("path");
-                            map[i][row] = 0;
-                            break;
-                        case "1":
-                            tiles[i][row] = tileTypes.get("grass");
-                            map[i][row] = 1;
-                            break;
-
+                if (line.charAt(0) == '9'){
+                    String[] split = line.split("=");
+                    if (split[0].equals("9startPosition")){
+                        enemy.setX(Integer.parseInt(split[1]));
+                        enemy.setY(Integer.parseInt(split[2]));
+                    }else{
+                        enemy.setEndX(Integer.parseInt(split[1]));
+                        enemy.setEndY(Integer.parseInt(split[2]));
+                        System.out.println(enemy);
                     }
+                }else {
+                    String[] split = line.split(" ");
+                    for (int i = 0; i < split.length; i++) {
+                        switch (split[i]) {
+                            case "0":
+                                tiles[i][row] = tileTypes.get("path");
+                                map[i][row] = 0;
+                                break;
+                            case "1":
+                                tiles[i][row] = tileTypes.get("grass");
+                                map[i][row] = 1;
+                                break;
+
+                        }
+                    }
+                    row ++;
                 }
-                row ++;
-            }
+                enemies.add(enemy);
+
+                }
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -89,6 +105,7 @@ public class Level {
         }
 
     }
+
     public void drawLevel(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < tiles.length; i++) {
@@ -102,9 +119,11 @@ public class Level {
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
-        //mysli si to ze x je 75
-        g2D.fillOval(enemies.get(0).getX()*75, enemies.get(0).getY()*75, 75,75);
+
+
         movement.move(enemies.get(0),this);
+        g2D.fillOval(enemies.get(0).getX()*75, enemies.get(0).getY()*75, 75,75);
+
 
     }
 
