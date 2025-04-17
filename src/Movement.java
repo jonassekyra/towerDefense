@@ -31,23 +31,23 @@ public class Movement {
         if (!currentPosition.equals(finishPosition)) {
             if (level.getMap()[enemy.getX() + 1][enemy.getY()] == 1 && !lastPosition.equals(currentPosition.right())) {
                 // This sets the value of the location to a high number that is unreachable so it cannot be accessed.
-                System.out.println(currentPosition.right());
+
                 level.getMap()[enemy.getX()][enemy.getY()] = 10;
                 enemy.setX(enemy.getX() + 1);
 
             } else if (level.getMap()[enemy.getX() - 1][enemy.getY()] == 1 && !lastPosition.equals(currentPosition.left())) {
                 level.getMap()[enemy.getX()][enemy.getY()] = 10;
-                System.out.println(currentPosition.left());
+
                 enemy.setX(enemy.getX() - 1);
 
             } else if (level.getMap()[enemy.getX()][enemy.getY() + 1] == 1 && !lastPosition.equals(currentPosition.down())) {
                 level.getMap()[enemy.getX()][enemy.getY()] = 10;
-                System.out.println(currentPosition.down());
+
                 enemy.setY(enemy.getY() + 1);
 
             } else if (level.getMap()[enemy.getX()][enemy.getY() - 1] == 1 && !lastPosition.equals(currentPosition.up())) {
                 level.getMap()[enemy.getX()][enemy.getY()] = 10;
-                System.out.println(currentPosition.up());
+
                 enemy.setY(enemy.getY() - 1);
 
             }
