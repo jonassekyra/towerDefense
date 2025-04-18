@@ -119,17 +119,16 @@ public class Level {
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
-        g2D.fillOval(enemies.get(0).getX()*75, enemies.get(0).getY()*75, 75,75);
-
-        if (enemies.get(0).isHasStarted()){
-            movement.move(enemies.get(0),this);
-        }else{
-            enemies.get(0).setHasStarted(true);
-
+        System.out.println(enemies.size() + "aakka");
+        for (Enemy e : enemies) {
+            System.out.println(e.getX() + "," + e.getY());
+            g2D.fillOval(e.getX() * 75, e.getY() * 75, 75, 75);
+            if (e.isHasStarted()) {
+                movement.move(e, this);
+            } else {
+                e.setHasStarted(true);
+            }
         }
-
-
-
 
 
     }
