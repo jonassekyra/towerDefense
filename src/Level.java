@@ -60,6 +60,19 @@ public class Level {
             throw new RuntimeException(e);
         }
     }
+    public void loadEnemies() {
+        try(BufferedReader br = new BufferedReader(new FileReader("Enemies1"))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                enemies.add(new Enemy());
+            }
+            System.out.println(enemies.size());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void loadLevel() {
         loadEnemies();
