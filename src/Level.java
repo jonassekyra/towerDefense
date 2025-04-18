@@ -62,22 +62,26 @@ public class Level {
     }
 
     public void loadLevel() {
+        loadEnemies();
         try (BufferedReader br = new BufferedReader(new FileReader("Map.txt"))) {
             Enemy enemy = new Enemy();
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
-                if (line.charAt(0) == '9'){
+                if (line.charAt(0) == '9') {
                     String[] split = line.split("=");
-                    if (split[0].equals("9startPosition")){
-                        enemy.setX(Integer.parseInt(split[1]));
-                        enemy.setY(Integer.parseInt(split[2]));
-                    }else{
+                    if (split[0].equals("9startPosition")) {
+                        for (Enemy enemy1 : enemies){
+                            enemy1.setX(Integer.parseInt(split[1]));
+                            enemy1.setY(Integer.parseInt(split[2]));
+                        }
+
+                    } else {
                         enemy.setEndX(Integer.parseInt(split[1]));
                         enemy.setEndY(Integer.parseInt(split[2]));
                         System.out.println(enemy);
                     }
-                }else {
+                } else {
                     String[] split = line.split(" ");
                     for (int i = 0; i < split.length; i++) {
                         switch (split[i]) {
