@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel {
     Level level = new Level();
@@ -14,6 +15,14 @@ public class GamePanel extends JPanel {
 
         timer = new Timer(16, this::actionPerformed);
         timer.start();
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int tileX = e.getX()/75;
+                int tileY = e.getY()/75;
+                System.out.println(tileX + " " + tileY);
+            }
+        });
     }
     @Override
     public void paint(Graphics g) {
