@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Level {
     private HashMap<String, Tile> tileTypes = new HashMap<>();
@@ -51,6 +52,7 @@ public class Level {
         this.map = map;
     }
 
+
     public void createTiles() {
         try {
             tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/hneda.png")), TileType.PATH));
@@ -77,7 +79,6 @@ public class Level {
     public void loadLevel() {
         loadEnemies();
         try (BufferedReader br = new BufferedReader(new FileReader("Map.txt"))) {
-            Enemy enemy = new Enemy();
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
@@ -90,9 +91,11 @@ public class Level {
                         }
 
                     } else {
-                        enemy.setEndX(Integer.parseInt(split[1]));
-                        enemy.setEndY(Integer.parseInt(split[2]));
-                        System.out.println(enemy);
+                        for (Enemy enemy1 : enemies){
+                            enemy1.setEndX(Integer.parseInt(split[1]));
+                            enemy1.setEndY(Integer.parseInt(split[2]));
+                        }
+
                     }
                 } else {
                     String[] split = line.split(" ");
@@ -106,15 +109,15 @@ public class Level {
                                 tiles[i][row] = tileTypes.get("grass");
                                 map[i][row] = 1;
                                 break;
-
                         }
                     }
-                    row ++;
-                }
-                enemies.add(enemy);
-
+                    row++;
                 }
 
+
+            }
+            //enemies.add(enemy);
+            //enemies.add(new Enemy(1, 4));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -127,18 +130,24 @@ public class Level {
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                g2D.drawImage(tiles[i][j].getImage(), i * 75,j * 75,75,75,null);
+                g2D.drawImage(tiles[i][j].getImage(), i * 75, j * 75, 75, 75, null);
             }
         }
 
     }
-    public void drawEnemy(Graphics g){
+
+    public void drawEnemy(Graphics g) {
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
-        System.out.println(enemies.size() + "aakka");
-        for (Enemy e : enemies) {
+        Iterator<Enemy> it = enemies.iterator();
+        while (it.hasNext()) {
+            Enemy e = it.next();
             System.out.println(e.getX() + "," + e.getY());
+            if (e.isHasEnded()){
+                it.remove();
+                continue;
+            }
             g2D.fillOval(e.getX() * 75, e.getY() * 75, 75, 75);
             if (e.isHasStarted()) {
                 movement.move(e, this);
@@ -146,7 +155,6 @@ public class Level {
                 e.setHasStarted(true);
             }
         }
-
 
     }
 
