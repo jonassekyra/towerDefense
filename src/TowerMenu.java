@@ -5,13 +5,12 @@ public class TowerMenu extends JPanel {
     JButton normalTower = new JButton("Normal Tower");
     JButton slowTower = new JButton("Slow Tower");
 
-    public TowerMenu() {
+    public TowerMenu(Game game) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setVisible(true);
         setBackground(Color.GRAY);
+        game.setGameState(GameState.DEFAULT);
 
-        //normalTower.setBounds(10, 10, 200, 30);
-        //slowTower.setBounds(10, 50, 200, 300);
         add(Box.createRigidArea(new Dimension(0, 20)));
         normalTower.setPreferredSize(new Dimension(200, 30));
 
@@ -23,10 +22,11 @@ public class TowerMenu extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(slowTower);
         normalTower.addActionListener(e ->{
+            game.setGameState(GameState.PLACING_TOWER);
 
         });
         slowTower.addActionListener(e ->{
-
+            game.setGameState(GameState.PLACING_TOWER);
         });
     }
 
