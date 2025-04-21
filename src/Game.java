@@ -1,5 +1,6 @@
 public class Game {
     private int money;
+    private int health;
     private GameState gameState;
 
     public int getMoney() {
@@ -17,4 +18,14 @@ public class Game {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+
 }
