@@ -1,11 +1,13 @@
 public class Movement {
 
-    public void move(Enemy enemy, Level level) {
+    public void move(Enemy enemy, Level level,Game game) {
 
         Position currentPosition = new Position(enemy.getX(), enemy.getY());
         Position finishPosition = new Position(enemy.getEndX(), enemy.getEndY());
         if (currentPosition.equals(finishPosition)) {
             System.out.println("konec");
+            enemy.doDamage(game);
+            System.out.println(game.getHealth());
             enemy.setHasEnded(true);
             return;
         }
