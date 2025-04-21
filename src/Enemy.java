@@ -17,8 +17,9 @@ public class Enemy {
         return visitedLocations;
     }
 
-    public void setVisitedLocations(HashSet<Position> visitedLocations) {
-        this.visitedLocations = visitedLocations;
+    public void doDamage(Game game) {
+        int temp = game.getHealth()- damage;
+        game.setHealth(temp);
     }
 
     @Override
@@ -35,6 +36,10 @@ public class Enemy {
     }
 
     public Enemy() {
+    }
+
+    public Enemy(int damage) {
+        this.damage = damage;
     }
 
     public boolean isHasStarted() {
