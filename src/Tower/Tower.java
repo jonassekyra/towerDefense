@@ -15,4 +15,39 @@ public abstract class Tower {
         this.image = image;
         this.cost = cost;
     }
+
+    public Tower() {
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public Time getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(Time attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }
