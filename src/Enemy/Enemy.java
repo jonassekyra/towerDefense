@@ -1,4 +1,12 @@
+package Enemy;
+
+import Game.Game;
+import Position.Position;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Enemy {
@@ -18,8 +26,21 @@ public class Enemy {
     }
 
     public void doDamage(Game game) {
-        int temp = game.getHealth()- damage;
+        int temp = game.getHealth() - damage;
         game.setHealth(temp);
+
+
+    }
+
+    public void takeDamage(int damage, ArrayList<Enemy> enemies) {
+        if (isAlive()) {
+            health -= damage;
+        }
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+
     }
 
     @Override
@@ -35,7 +56,12 @@ public class Enemy {
         return Objects.hashCode(visitedLocations);
     }
 
-    public Enemy() {
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public Enemy(int damage) {
@@ -94,6 +120,4 @@ public class Enemy {
     public void setY(int y) {
         this.y = y;
     }
-
-
 }
