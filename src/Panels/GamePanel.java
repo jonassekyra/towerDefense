@@ -27,6 +27,7 @@ public class GamePanel extends JPanel {
 
         timer = new Timer(16, this::actionPerformed);
         timer.start();
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -36,7 +37,7 @@ public class GamePanel extends JPanel {
                     if (level.getMap()[tileX][tileY] != 1 && (tileX< 10 && tileY< 10)){
                         try {
                             BufferedImage towerImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
-                            level.getTowers()[tileX][tileY] = new NormalTower();
+                            level.getTowers()[tileX][tileY] = new NormalTower(20,towerImage,3,3,tileX,tileY,new SingleAttack());
                             level.getTowers()[tileX][tileY].setImage(towerImage);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel {
     }
     public void actionPerformed(ActionEvent e) {
         repaint();
+        level.goTroughTowers();
     }
 
 }
