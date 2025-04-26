@@ -5,7 +5,7 @@ import Game.Game;
 import Tiles.Tile;
 import Tiles.TileType;
 import Tower.Tower;
-
+import Enemy.Movement;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -76,7 +76,7 @@ public class Level {
             tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/hneda.png")), TileType.PATH));
             tileTypes.put("grass", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/zelena.png")), TileType.GRASS));
 
-            //enemies.add(new Enemy(0,0));
+            //enemies.add(new Enemy.Enemy(0,0));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,6 +108,7 @@ public class Level {
                         for (Enemy enemy1 : enemies) {
                             enemy1.setX(Integer.parseInt(split[1]));
                             enemy1.setY(Integer.parseInt(split[2]));
+                            enemy1.setHealth(100);
                         }
 
                     } else {
@@ -133,11 +134,9 @@ public class Level {
                     }
                     row++;
                 }
-
-
             }
             //enemies.add(enemy);
-            //enemies.add(new Enemy(1, 4));
+            //enemies.add(new Enemy.Enemy(1, 4));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -186,12 +185,24 @@ public class Level {
                 if (towers[i][j] != null) {
                     g2d.drawImage(towers[i][j].getImage(), i * 75, j * 75, 75, 75, null);
 
-
                 }
             }
 
         }
     }
+
+    public void goThroughTowers() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                if (towers[i][j] != null) {
+                    towers[i][j].getAttackStrategy().attack(this, towers[i][j]);
+                    System.out.println("joo");
+
+                }
+            }
+        }
+    }
+
 
 
 }
