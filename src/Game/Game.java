@@ -1,3 +1,5 @@
+package Game;
+
 public class Game {
     private int money;
     private int health;

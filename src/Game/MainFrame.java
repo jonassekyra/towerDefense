@@ -1,3 +1,8 @@
+package Game;
+
+import Panels.GamePanel;
+import Panels.TowerMenu;
+
 import javax.swing.*;
 import java.awt.*;
 

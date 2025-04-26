@@ -1,3 +1,7 @@
+package Panels;
+
+import Game.*;
+
 import javax.swing.*;
 import java.awt.*;
 

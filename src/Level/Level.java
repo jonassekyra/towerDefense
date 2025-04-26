@@ -1,3 +1,9 @@
+package Level;
+
+import Enemy.Enemy;
+import Game.Game;
+import Tiles.Tile;
+import Tiles.TileType;
 import Tower.Tower;
 
 import javax.imageio.ImageIO;

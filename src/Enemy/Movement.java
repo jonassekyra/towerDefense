@@ -1,3 +1,9 @@
+package Enemy;
+
+import Game.Game;
+import Level.Level;
+import Position.Position;
+
 public class Movement {
 
     public void move(Enemy enemy, Level level,Game game) {

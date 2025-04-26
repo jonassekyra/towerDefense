@@ -1,3 +1,8 @@
+package Panels;
+
+import Attack.SingleAttack;
+import Game.*;
+import Level.Level;
 import Tower.NormalTower;
 
 import javax.imageio.ImageIO;
