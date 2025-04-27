@@ -24,6 +24,7 @@ public class Enemy {
     private HashSet<Position> visitedLocations = new HashSet<>();
     private int damage;
     private int health;
+    private Direction direction;
 
 
     public HashSet<Position> getVisitedLocations() {
@@ -55,6 +56,10 @@ public class Enemy {
         Enemy enemy = (Enemy) o;
         return Objects.equals(visitedLocations, enemy.visitedLocations);
     }
+    public void setTargetPosition(int targetX, int targetY) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+    }
 
     @Override
     public int hashCode() {
@@ -67,6 +72,54 @@ public class Enemy {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getPixelX() {
+        return pixelX;
+    }
+
+    public void setPixelX(int pixelX) {
+        this.pixelX = pixelX;
+    }
+
+    public int getPixelY() {
+        return pixelY;
+    }
+
+    public void setPixelY(int pixelY) {
+        this.pixelY = pixelY;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getTargetX() {
+        return targetX;
+    }
+
+    public void setTargetX(int targetX) {
+        this.targetX = targetX;
+    }
+
+    public int getTargetY() {
+        return targetY;
+    }
+
+    public void setTargetY(int targetY) {
+        this.targetY = targetY;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public Enemy(int damage) {
