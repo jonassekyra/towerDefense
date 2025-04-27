@@ -12,6 +12,11 @@ import java.util.Objects;
 public class Enemy {
     private int x;
     private int y;
+    private int pixelX;
+    private int pixelY;
+    private int speed;
+    private int targetX;
+    private int targetY;
     private int endX;
     private int endY;
     private boolean hasStarted = false;
