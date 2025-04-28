@@ -20,15 +20,28 @@ public class Movement {
 
         Position currentPosition = new Position(tileX, tileY);
         Position finishPosition = new Position(enemy.getEndX(), enemy.getEndY());
+        int finishPixX = enemy.getEndX() * tileSize;
+        int finishPixY = enemy.getEndY() * tileSize;
 
+        if (pixelX % tileSize == 0&&pixelY % tileSize == 0) {
+            enemy.setX(tileX);
+            enemy.setY(tileY);
 
-        if (currentPosition.equals(finishPosition)) {
+        }
+
+        if (pixelX == finishPixX && pixelY == finishPixY) {
             System.out.println("konec");
             enemy.doDamage(game);
             System.out.println(game.getHealth());
             enemy.setHasEnded(true);
             return;
         }
+        /*
+        if (currentPosition.equals(finishPosition)) {
+
+        }
+        \
+         */
         if (enemy.getPixelX() % 75 == 0 && enemy.getPixelY() % 75 == 0) {
             if (level.getMap()[tileX + 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.right())) {
                 enemy.setDirection(Direction.RIGHT);
@@ -64,8 +77,6 @@ public class Movement {
                 case DOWN -> enemy.setPixelY(pixelY + enemy.getSpeed());
             }
             if (enemy.getPixelX() % 75 == 0 && enemy.getPixelY() % 75 == 0) {
-                //enemy.setX(enemy.getPixelX()/tileSize);
-                //enemy.setY(enemy.getPixelY()/tileSize);
 
                 int newTileX = enemy.getPixelX() / tileSize;
                 int newTileY = enemy.getPixelY() / tileSize;
