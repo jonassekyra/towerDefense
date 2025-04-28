@@ -6,10 +6,22 @@ import Position.Position;
 
 public class Movement {
 
-    public void move(Enemy enemy, Level level,Game game) {
+    public void move(Enemy enemy, Level level, Game game) {
 
-        Position currentPosition = new Position(enemy.getX(), enemy.getY());
+
+        int tileSize = 75;
+
+        //only for better visuals of the code
+        int pixelX = enemy.getPixelX();
+        int pixelY = enemy.getPixelY();
+
+        int tileX = pixelX / tileSize;
+        int tileY = pixelY / tileSize;
+
+        Position currentPosition = new Position(tileX, tileY);
         Position finishPosition = new Position(enemy.getEndX(), enemy.getEndY());
+
+
         if (currentPosition.equals(finishPosition)) {
             System.out.println("konec");
             enemy.doDamage(game);
@@ -17,27 +29,60 @@ public class Movement {
             enemy.setHasEnded(true);
             return;
         }
-        if (level.getMap()[enemy.getX() + 1][enemy.getY()] == 1 && !enemy.getVisitedLocations().contains(currentPosition.right())) {
+        if (enemy.getPixelX() % 75 == 0 && enemy.getPixelY() % 75 == 0) {
+            if (level.getMap()[tileX + 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.right())) {
+                enemy.setDirection(Direction.RIGHT);
+
+                enemy.getVisitedLocations().add(currentPosition.right());
+                //enemy.setTargetPosition(tileX + 1, tileY);
+                //enemy.setX(enemy.getX() + 1);
+
+            } else if (level.getMap()[tileX - 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.left())) {
+                enemy.setDirection(Direction.LEFT);
+                enemy.getVisitedLocations().add(currentPosition.left());
+                //enemy.setX(enemy.getX() - 1);
 
 
-            enemy.getVisitedLocations().add(currentPosition.right());
-            enemy.setX(enemy.getX() + 1);
+            } else if (level.getMap()[tileX][tileY + 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.down())) {
+                enemy.setDirection(Direction.DOWN);
+                enemy.getVisitedLocations().add(currentPosition.down());
+                //enemy.setY(enemy.getY() + 1);
 
-        } else if (level.getMap()[enemy.getX() - 1][enemy.getY()] == 1 && !enemy.getVisitedLocations().contains(currentPosition.left())) {
-
-            enemy.getVisitedLocations().add(currentPosition.left());
-            enemy.setX(enemy.getX() - 1);
-
-
-        } else if (level.getMap()[enemy.getX()][enemy.getY() + 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.down())) {
-            enemy.getVisitedLocations().add(currentPosition.down());
-            enemy.setY(enemy.getY() + 1);
-
-        } else if (level.getMap()[enemy.getX()][enemy.getY() - 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.up())) {
-            enemy.getVisitedLocations().add(currentPosition.up());
-            enemy.setY(enemy.getY() - 1);
+            } else if (level.getMap()[tileX][tileY - 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.up())) {
+                enemy.setDirection(Direction.UP);
+                enemy.getVisitedLocations().add(currentPosition.up());
+                //enemy.setY(enemy.getY() - 1);
+            }
         }
-        try {
+
+
+        if (enemy.getDirection() != null) {
+            switch (enemy.getDirection()) {
+                case LEFT -> enemy.setPixelX(pixelX - enemy.getSpeed());
+                case RIGHT -> enemy.setPixelX(pixelX + enemy.getSpeed());
+                case UP -> enemy.setPixelY(pixelY - enemy.getSpeed());
+                case DOWN -> enemy.setPixelY(pixelY + enemy.getSpeed());
+            }
+            if (enemy.getPixelX() % 75 == 0 && enemy.getPixelY() % 75 == 0) {
+                //enemy.setX(enemy.getPixelX()/tileSize);
+                //enemy.setY(enemy.getPixelY()/tileSize);
+
+                int newTileX = enemy.getPixelX() / tileSize;
+                int newTileY = enemy.getPixelY() / tileSize;
+
+                if (newTileX != tileX || newTileY != tileY) {
+                    enemy.setX(newTileX);
+                    enemy.setY(newTileY);
+                    enemy.setDirection(null);
+                }
+
+            }
+
+
+        }
+        System.out.println(enemy.getX());
+        System.out.println(enemy.getY());
+        try{
             Thread.sleep(20);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -45,6 +90,4 @@ public class Movement {
 
 
     }
-
-
 }
