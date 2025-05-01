@@ -2,6 +2,7 @@ package Tower;
 
 import Attack.AttackStrategy;
 import Enemy.Enemy;
+import Level.Level;
 
 import java.awt.image.BufferedImage;
 import java.sql.Time;
@@ -18,10 +19,13 @@ public abstract class Tower {
     protected int posX;
     protected int posY;
     protected AttackStrategy attackStrategy;
+    //in milliseconds
+    protected long cooldown;
+    protected long LastAttack = 0;
 
 
 
-    public Tower(int damage, BufferedImage image, int rangeX, int rangeY, int posX, int posY,AttackStrategy attackStrategy) {
+    public Tower(int damage, BufferedImage image, int rangeX, int rangeY, int posX, int posY,AttackStrategy attackStrategy,long cooldown) {
         this.damage = damage;
         this.image = image;
         this.rangeX = rangeX;
@@ -29,6 +33,7 @@ public abstract class Tower {
         this.posX = posX;
         this.posY = posY;
         this.attackStrategy = attackStrategy;
+        this.cooldown = cooldown;
     }
 
     public int getRangeX() {
@@ -118,6 +123,15 @@ public abstract class Tower {
 
         }
         return results;
+    }
+
+    public void canAttack(Level level){
+        //https://gamedev.stackexchange.com/questions/158616/how-do-i-create-a-delay-or-cooldown-timer
+        long now = System.currentTimeMillis();
+        if (now >= cooldown + LastAttack){
+            attackStrategy.attack(level, this);
+            LastAttack = now;
+        }
     }
 
 }
