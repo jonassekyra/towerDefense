@@ -34,41 +34,14 @@ public class Level {
         return towers;
     }
 
-    public void setTowers(Tower[][] towers) {
-        this.towers = towers;
-    }
-
-    public HashMap<String, Tile> getTileTypes() {
-        return tileTypes;
-    }
-
-    public void setTileTypes(HashMap<String, Tile> tileTypes) {
-        this.tileTypes = tileTypes;
-    }
-
     public ArrayList<Enemy> getEnemies() {
         return enemies;
-    }
-
-    public void setEnemies(ArrayList<Enemy> enemies) {
-        this.enemies = enemies;
-    }
-
-    public Tile[][] getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
     }
 
     public int[][] getMap() {
         return map;
     }
 
-    public void setMap(int[][] map) {
-        this.map = map;
-    }
 
 
     public void createTiles() {
@@ -140,8 +113,7 @@ public class Level {
                     row++;
                 }
             }
-            //enemies.add(enemy);
-            //enemies.add(new Enemy.Enemy(1, 4));
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -167,13 +139,11 @@ public class Level {
         Iterator<Enemy> it = enemies.iterator();
         while (it.hasNext()) {
             Enemy e = it.next();
-            //System.out.println(e.getX() + "," + e.getY());
             if (e.isHasEnded()) {
-
                 it.remove();
                 continue;
             }
-            g2D.fillOval(e.getX() * 75, e.getY() * 75, 75, 75);
+            g2D.fillOval(e.getPixelX(), e.getPixelY(), 75, 75);
             if (e.isHasStarted()) {
                 movement.move(e, this,game);
             } else {
@@ -200,9 +170,7 @@ public class Level {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 if (towers[i][j] != null) {
-                    towers[i][j].getAttackStrategy().attack(this, towers[i][j]);
-                    System.out.println("joo");
-
+                    towers[i][j].canAttack(this);
                 }
             }
         }
