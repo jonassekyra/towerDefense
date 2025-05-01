@@ -109,6 +109,11 @@ public class Level {
                             enemy1.setX(Integer.parseInt(split[1]));
                             enemy1.setY(Integer.parseInt(split[2]));
                             enemy1.setHealth(100);
+                            int tempX = Integer.parseInt(split[1]);
+                            int tempY = Integer.parseInt(split[2]);
+                            enemy1.setPixelX(tempX * 75);
+                            enemy1.setPixelY(tempY * 75);
+                            enemy1.setSpeed(3);
                         }
 
                     } else {
