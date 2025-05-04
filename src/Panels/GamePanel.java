@@ -3,8 +3,8 @@ package Panels;
 import Attack.SingleAttack;
 import Game.*;
 import Level.Level;
+import Render.Render;
 import Tower.NormalTower;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class GamePanel extends JPanel {
     Level level = new Level();
+    Render render = new Render(level.getEnemyManager(),level.getMovement(),level);
     Timer timer;
     Game game;
 
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel {
                     if (level.getMap()[tileX][tileY] != 1 && (tileX< 10 && tileY< 10)){
                         try {
                             BufferedImage towerImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
-                            level.getTowers()[tileX][tileY] = new NormalTower(20,towerImage,3,3,tileX,tileY,new SingleAttack());
+                            level.getTowers()[tileX][tileY] = new NormalTower(20,towerImage,3,3,tileX,tileY,new SingleAttack(),1000);
                             level.getTowers()[tileX][tileY].setImage(towerImage);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
@@ -58,13 +59,14 @@ public class GamePanel extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         level.drawLevel(g2d);
-        level.drawEnemy(g2d,game);
+        //level.drawEnemy(g2d,game);
+        render.drawEnemy(g2d,game);
         level.drawTowers(g2d);
 
     }
     public void actionPerformed(ActionEvent e) {
         repaint();
-        level.goTroughTowers();
+        level.goThroughTowers();
     }
 
 }
