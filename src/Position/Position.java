@@ -28,11 +28,6 @@ public class Position {
     }
 
 
-    public Position(Position coppiedPosition) {
-        this.x = coppiedPosition.x;
-        this.y = coppiedPosition.y;
-    }
-
     @Override
     public String toString() {
         return "Position.Position{" +
@@ -53,4 +48,14 @@ public class Position {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public int getY() {
+        return y;
+    }
+
+
+    public int getX() {
+        return x;
+    }
+
 }
