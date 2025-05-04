@@ -13,64 +13,37 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import Enemy.EnemyManager;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class Level {
     private HashMap<String, Tile> tileTypes = new HashMap<>();
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private Tile[][] tiles = new Tile[9][9];
-    private int[][] map = new int[9][9];
+    //private ArrayList<Enemy> enemies = new ArrayList<>();
+    private Tile[][] tiles;
+    private int[][] map;
     private Tower[][] towers = new Tower[9][9];
     Movement movement = new Movement();
-
+    MapLoader mapLoader = new MapLoader();
+    EnemyManager enemyManager = new EnemyManager(mapLoader);
 
     public Level() {
-        createTiles();
-        loadLevel();
+        map = mapLoader.getMap();
+        tiles = mapLoader.getTiles();
+        //createTiles();
+        //loadLevel();
     }
 
     public Tower[][] getTowers() {
         return towers;
     }
 
-    public ArrayList<Enemy> getEnemies() {
-        return enemies;
-    }
 
     public int[][] getMap() {
         return map;
     }
-
-
-
-    public void createTiles() {
-        try {
-            tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/hneda.png")), TileType.PATH));
-            tileTypes.put("grass", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/zelena.png")), TileType.GRASS));
-
-            //enemies.add(new Enemy.Enemy(0,0));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void loadEnemies() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Enemies1"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                enemies.add(new Enemy(15));
-            }
-            System.out.println(enemies.size());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    /*
     public void loadLevel() {
-        loadEnemies();
         try (BufferedReader br = new BufferedReader(new FileReader("Map.txt"))) {
             String line;
             int row = 0;
@@ -86,7 +59,7 @@ public class Level {
                             int tempY = Integer.parseInt(split[2]);
                             enemy1.setPixelX(tempX * 75);
                             enemy1.setPixelY(tempY * 75);
-                            enemy1.setSpeed(3);
+                            enemy1.setSpeed(1);
                         }
 
                     } else {
@@ -122,6 +95,8 @@ public class Level {
 
     }
 
+     */
+
     public void drawLevel(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < tiles.length; i++) {
@@ -131,9 +106,8 @@ public class Level {
         }
 
     }
-
+/*
     public void drawEnemy(Graphics g, Game game) {
-
         Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(Color.BLACK);
         Iterator<Enemy> it = enemies.iterator();
@@ -152,6 +126,8 @@ public class Level {
         }
 
     }
+
+ */
 
     public void drawTowers(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -176,6 +152,15 @@ public class Level {
         }
     }
 
+    public EnemyManager getEnemyManager() {
+        return enemyManager;
+    }
 
+    public Movement getMovement() {
+        return movement;
+    }
 
+    public MapLoader getMapLoader() {
+        return mapLoader;
+    }
 }
