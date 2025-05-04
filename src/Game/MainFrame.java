@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
     GamePanel gamePanel;
     TowerMenu towerMenu;
     Game game;
-    public MainFrame() {
+    public MainFrame()  {
         game = new Game();
         game.setHealth(100);
         gamePanel = new GamePanel(game);

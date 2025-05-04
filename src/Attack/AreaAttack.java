@@ -1,10 +1,7 @@
 package Attack;
 
-import Enemy.Enemy;
 import Level.Level;
 import Tower.Tower;
-
-import java.util.List;
 
 public class AreaAttack implements AttackStrategy {
     private Tower tower;
@@ -14,7 +11,7 @@ public class AreaAttack implements AttackStrategy {
     }
 
     @Override
-    public void attack(Level level,Tower tower) {
+    public void attack(Level level, Tower tower) {
 
     }
 }

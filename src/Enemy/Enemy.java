@@ -5,8 +5,6 @@ import Position.Position;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import java.util.Iterator;
 import java.util.Objects;
 
 public class Enemy {
@@ -56,6 +54,7 @@ public class Enemy {
         Enemy enemy = (Enemy) o;
         return Objects.equals(visitedLocations, enemy.visitedLocations);
     }
+
     public void setTargetPosition(int targetX, int targetY) {
         this.targetX = targetX;
         this.targetY = targetY;

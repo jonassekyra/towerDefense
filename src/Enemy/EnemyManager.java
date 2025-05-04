@@ -1,5 +1,7 @@
 package Enemy;
+
 import Level.MapLoader;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 
 public class EnemyManager {
     private MapLoader mapLoader;
+
     public EnemyManager(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
         loadEnemies();
@@ -22,8 +25,8 @@ public class EnemyManager {
     }
 
 
-    public void startEndPosition(){
-        for (Enemy e: enemies){
+    public void startEndPosition() {
+        for (Enemy e : enemies) {
             e.setX(mapLoader.getStartPosition().getX());
             e.setY(mapLoader.getStartPosition().getY());
             e.setPixelX(mapLoader.getStartPosition().getX() * 75);
@@ -34,6 +37,7 @@ public class EnemyManager {
             e.setHealth(100);
         }
     }
+
     public void loadEnemies() {
         try (BufferedReader br = new BufferedReader(new FileReader("Enemies1"))) {
             String line;

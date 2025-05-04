@@ -26,4 +26,12 @@ public class Tile {
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
     }
+
+    @Override
+    public String toString() {
+        return "Tiles.Tile{" +
+                "image=" + image +
+                ", tileType=" + tileType +
+                '}';
+    }
 }
