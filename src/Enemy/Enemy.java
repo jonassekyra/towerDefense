@@ -66,6 +66,14 @@ public class Enemy {
         return Objects.hashCode(visitedLocations);
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public int getHealth() {
         return health;
     }
