@@ -40,4 +40,8 @@ public class Level {
     public Tile[][] getTiles() {
         return tiles;
     }
+
+    public boolean isInBounds(int x, int y) {
+        return x >= 0 && x < map.length && y >= 0 && y < map[0].length;
+    }
 }
