@@ -23,7 +23,25 @@ public class Enemy {
     private int damage;
     private int health;
     private Direction direction;
+    private long spawnCooldown;
+    private int progres;
 
+
+    public long getSpawnCooldown() {
+        return spawnCooldown;
+    }
+
+    public int getProgres() {
+        return progres;
+    }
+
+    public void setProgres(int progres) {
+        this.progres = progres;
+    }
+
+    public void setSpawnCooldown(long spawnCooldown) {
+        this.spawnCooldown = spawnCooldown;
+    }
 
     public HashSet<Position> getVisitedLocations() {
         return visitedLocations;
@@ -59,6 +77,7 @@ public class Enemy {
         this.targetX = targetX;
         this.targetY = targetY;
     }
+
 
     @Override
     public int hashCode() {
