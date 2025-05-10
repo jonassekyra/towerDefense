@@ -8,6 +8,13 @@ import java.awt.*;
 public class TowerMenu extends JPanel {
     JButton normalTower = new JButton("Normal Tower");
     JButton slowTower = new JButton("Slow Tower");
+    private String currentlySelectedTower = null;
+
+
+    public String getCurrentlySelectedTower() {
+        return currentlySelectedTower;
+    }
+
 
     public TowerMenu(Game game) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -25,12 +32,14 @@ public class TowerMenu extends JPanel {
         add(normalTower);
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(slowTower);
-        normalTower.addActionListener(e ->{
+        normalTower.addActionListener(e -> {
             game.setGameState(GameState.PLACING_TOWER);
+            currentlySelectedTower = normalTower.getText();
 
         });
-        slowTower.addActionListener(e ->{
+        slowTower.addActionListener(e -> {
             game.setGameState(GameState.PLACING_TOWER);
+            currentlySelectedTower = slowTower.getText();
         });
     }
 
