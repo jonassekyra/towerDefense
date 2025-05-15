@@ -39,25 +39,12 @@ public class EnemyManager {
             e.setEndX(mapLoader.getEndPosition().getX());
             e.setEndY(mapLoader.getEndPosition().getY());
             e.setSpeed(5);
-            e.setHealth(100);
-            e.setTargetX(e.getX() * 75);
-            e.setTargetY(e.getY() * 75);
-        }
-        /*
-        for (Enemy e : enemies) {
-            e.setX(mapLoader.getStartPosition().getX());
-            e.setY(mapLoader.getStartPosition().getY());
-            e.setPixelX(mapLoader.getStartPosition().getX() * 75);
-            e.setPixelY(mapLoader.getStartPosition().getY() * 75);
-            e.setEndX(mapLoader.getEndPosition().getX());
-            e.setEndY(mapLoader.getEndPosition().getY());
-            e.setSpeed(8);
+            System.out.println("neco");
             e.setHealth(100);
             e.setTargetX(e.getX() * 75);
             e.setTargetY(e.getY() * 75);
         }
 
-         */
     }
 
     public void loadEnemies() {

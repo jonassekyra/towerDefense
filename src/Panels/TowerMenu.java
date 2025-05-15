@@ -15,6 +15,9 @@ public class TowerMenu extends JPanel {
         return currentlySelectedTower;
     }
 
+    public void setCurrentlySelectedTower(String currentlySelectedTower) {
+        this.currentlySelectedTower = currentlySelectedTower;
+    }
 
     public TowerMenu(Game game) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

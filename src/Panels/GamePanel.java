@@ -6,6 +6,7 @@ import Game.*;
 import Level.Level;
 import Render.Render;
 import Tower.NormalTower;
+import Tower.SlowTower;
 import Tower.TowerManager;
 
 import javax.imageio.ImageIO;
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel {
 
                         case "Slow Tower":
                             BufferedImage slowImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
-                            towerManager.getTowers()[tileX][tileY] = new NormalTower(20, slowImage, 3, 3, tileX, tileY, new SlowAttack(), 1000);
+                            towerManager.getTowers()[tileX][tileY] = new SlowTower(20, slowImage, 3, 3, tileX, tileY, new SlowAttack(), 1000);
                             towerManager.getTowers()[tileX][tileY].setImage(slowImage);
                             towerMenu.setCurrentlySelectedTower(null);
                             break;
@@ -83,13 +84,15 @@ public class GamePanel extends JPanel {
         render.drawLevel(g2d, level);
         render.drawEnemy(g2d, game);
         render.drawTowers(g2d, level, towerManager);
+        render.renderProjectile(g2d,level);
 
     }
 
     public void actionPerformed(ActionEvent e) {
         level.getEnemyManager().spawnEnemy();
-        repaint();
         towerManager.updateTowers(level);
+        level.updateProjectiles();
+        repaint();
     }
 
 }

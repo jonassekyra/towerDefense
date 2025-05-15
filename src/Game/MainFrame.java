@@ -13,8 +13,8 @@ public class MainFrame extends JFrame {
     public MainFrame()  {
         game = new Game();
         game.setHealth(100);
-        gamePanel = new GamePanel(game);
         towerMenu = new TowerMenu(game);
+        gamePanel = new GamePanel(game,towerMenu);
 
         this.setLayout(new BorderLayout());
         this.add(gamePanel, BorderLayout.CENTER);

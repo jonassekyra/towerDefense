@@ -1,6 +1,7 @@
 package Tower;
 
 import Attack.AttackStrategy;
+import Attack.Projectile;
 import Enemy.Enemy;
 import Level.Level;
 
@@ -25,7 +26,8 @@ public abstract class Tower {
 
 
 
-    public Tower(int damage, BufferedImage image, int rangeX, int rangeY, int posX, int posY,AttackStrategy attackStrategy,long cooldown) {
+
+    public Tower(int damage, BufferedImage image, int rangeX, int rangeY, int posX, int posY, AttackStrategy attackStrategy, long cooldown) {
         this.damage = damage;
         this.image = image;
         this.rangeX = rangeX;
