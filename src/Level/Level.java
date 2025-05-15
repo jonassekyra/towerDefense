@@ -1,10 +1,15 @@
 package Level;
 
+import Attack.Projectile;
+import Enemy.Enemy;
 import Tiles.Tile;
 
 import Enemy.Movement;
 import Enemy.EnemyManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class Level {
@@ -16,6 +21,36 @@ public class Level {
     Movement movement = new Movement();
     MapLoader mapLoader = new MapLoader();
     EnemyManager enemyManager = new EnemyManager(mapLoader);
+
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
+
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    public void updateProjectiles() {
+
+        Iterator<Projectile> iterator = projectiles.iterator();
+        while (iterator.hasNext()) {
+            Projectile projectile = iterator.next();
+            projectile.update();
+            if (!projectile.isActive()){
+                iterator.remove();
+                continue;
+            }
+            for (Enemy enemy : enemyManager.getEnemies()) {
+                if (projectile.hasHit(projectile,enemy)){
+                    enemy.takeDamage(20);
+                    System.out.println(enemy.getHealth());
+                    projectile.setActive(false);
+                    break;
+                }
+            }
+        }
+
+    }
+
 
     public Level() {
         map = mapLoader.getMap();
