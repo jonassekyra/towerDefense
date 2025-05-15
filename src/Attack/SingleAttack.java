@@ -13,6 +13,7 @@ public class SingleAttack implements AttackStrategy {
 
     @Override
     public void attack(Level level, Tower tower) {
+
         int maxProgres = -1;
         Enemy target = null;
         ArrayList<Enemy> enemies = level.getEnemyManager().getEnemies();
@@ -45,11 +46,13 @@ public class SingleAttack implements AttackStrategy {
             }
         }
 
-        target.takeDamage(tower.getDamage(), enemies);
-        System.out.println(target.getHealth());
+        int startX = tower.getPosX() * 75+75/2-5;
+        int startY = tower.getPosY() * 75+75/2-5;
+        int targetX = target.getPixelX()+ 75 / 2 - 5;
+        int targetY = target.getPixelY()+ 75 / 2 - 5;
+        Projectile p = new Projectile(startX,startY,2,targetX,targetY);
 
-        if (!target.isAlive()) {
-            level.getEnemyManager().getEnemies().remove(target);
-        }
+        level.getProjectiles().add(p);
+
     }
 }
