@@ -31,48 +31,79 @@ public class Movement {
             enemy.setHasEnded(true);
             return;
         }
-        if (enemy.getPixelX() % tileSize == 0 && enemy.getPixelY() % tileSize == 0) {
-            if (level.getMap()[tileX + 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.right())) {
+
+        if (enemy.getDirection() == null) {
+            if (level.isInBounds(tileX + 1, tileY) && level.getMap()[tileX + 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.right())) {
                 enemy.setDirection(Direction.RIGHT);
                 enemy.getVisitedLocations().add(currentPosition.right());
-            } else if (level.getMap()[tileX - 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.left())) {
+                enemy.setTargetX(enemy.getTargetX() + tileSize);
+                enemy.setProgres(enemy.getProgres() + 1);
+            } else if (level.isInBounds(tileX - 1, tileY) && level.getMap()[tileX - 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.left())) {
                 enemy.setDirection(Direction.LEFT);
                 enemy.getVisitedLocations().add(currentPosition.left());
-            } else if (level.getMap()[tileX][tileY + 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.down())) {
+                enemy.setTargetX(enemy.getTargetX() - tileSize);
+                enemy.setProgres(enemy.getProgres() + 1);
+            } else if (level.isInBounds(tileX, tileY + 1) && level.getMap()[tileX][tileY + 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.down())) {
                 enemy.setDirection(Direction.DOWN);
                 enemy.getVisitedLocations().add(currentPosition.down());
-
-            } else if (level.getMap()[tileX][tileY - 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.up())) {
+                enemy.setTargetY(enemy.getTargetY() + tileSize);
+                enemy.setProgres(enemy.getProgres() + 1);
+            } else if (level.isInBounds(tileX, tileY - 1) && level.getMap()[tileX][tileY - 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.up())) {
                 enemy.setDirection(Direction.UP);
                 enemy.getVisitedLocations().add(currentPosition.up());
+                enemy.setTargetY(enemy.getTargetY() - tileSize);
+                enemy.setProgres(enemy.getProgres() + 1);
 
             }
+
         }
 
         if (enemy.getDirection() != null) {
             switch (enemy.getDirection()) {
-                case LEFT -> enemy.setPixelX(pixelX - enemy.getSpeed());
-                case RIGHT -> enemy.setPixelX(pixelX + enemy.getSpeed());
-                case UP -> enemy.setPixelY(pixelY - enemy.getSpeed());
-                case DOWN -> enemy.setPixelY(pixelY + enemy.getSpeed());
+                case LEFT -> {
+                    enemy.setPixelX(pixelX - enemy.getSpeed());
+                    if (pixelX <= enemy.getTargetX()) {
+                        enemy.setPixelX(enemy.getTargetX());
+                        enemy.setDirection(null);
+                    }
+                }
+                case RIGHT -> {
+                    enemy.setPixelX(pixelX + enemy.getSpeed());
+                    if (pixelX >= enemy.getTargetX()) {
+                        enemy.setPixelX(enemy.getTargetX());
+                        enemy.setDirection(null);
+                    }
+                }
+                case UP -> {
+                    enemy.setPixelY(pixelY - enemy.getSpeed());
+                    if (pixelY <= enemy.getTargetY()) {
+                        enemy.setPixelY(enemy.getTargetY());
+                        enemy.setDirection(null);
+                    }
+                }
+                case DOWN -> {
+                    enemy.setPixelY(pixelY + enemy.getSpeed());
+                    if (pixelY >= enemy.getTargetY()) {
+                        enemy.setPixelY(enemy.getTargetY());
+                        enemy.setDirection(null);
+                    }
+                }
             }
-            if (enemy.getPixelX() % tileSize == 0 && enemy.getPixelY() % tileSize == 0) {
+
+            if (enemy.getDirection() == null) {
                 int newTileX = enemy.getPixelX() / tileSize;
                 int newTileY = enemy.getPixelY() / tileSize;
 
                 if (newTileX != tileX || newTileY != tileY) {
                     enemy.setX(newTileX);
                     enemy.setY(newTileY);
-                    enemy.setDirection(null);
+
                 }
             }
         }
 
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
+
 }
