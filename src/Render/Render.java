@@ -1,5 +1,6 @@
 package Render;
 
+import Attack.Projectile;
 import Enemy.Enemy;
 import Game.Game;
 import Enemy.EnemyManager;
@@ -7,6 +8,7 @@ import java.awt.*;
 import java.util.Iterator;
 import Enemy.Movement;
 import Level.Level;
+import Tower.Tower;
 import Tower.TowerManager;
 
 public class Render {
@@ -56,6 +58,14 @@ public class Render {
                 }
             }
 
+        }
+    }
+
+    public void renderProjectile(Graphics g,Level level) {
+        g.setColor(Color.BLUE);
+        for (Projectile projectile : level.getProjectiles() ){
+            g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
+            //projectile.update();
         }
     }
 }
