@@ -54,7 +54,7 @@ public class Enemy {
 
     }
 
-    public void takeDamage(int damage, ArrayList<Enemy> enemies) {
+    public void takeDamage(int damage) {
         if (isAlive()) {
             health -= damage;
         }
