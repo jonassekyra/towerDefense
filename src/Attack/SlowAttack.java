@@ -47,8 +47,15 @@ public class SlowAttack implements AttackStrategy {
         }
         if (enemies.contains(target)) {
         }
+        int startX = tower.getPosX() * 75+75/2-5;
+        int startY = tower.getPosY() * 75+75/2-5;
+        int targetX = target.getPixelX()+ 75 / 2 - 5;
+        int targetY = target.getPixelY()+ 75 / 2 - 5;
+        Projectile p = new Projectile(startX,startY,20,targetX,targetY);
 
-        target.takeDamage(tower.getDamage(), enemies);
+        level.getProjectiles().add(p);
+
+        target.takeDamage(tower.getDamage());
         for (Enemy e : enemies) {
             if (e.equals(target)) {
                 e.setSpeed(1);
