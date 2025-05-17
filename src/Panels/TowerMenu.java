@@ -4,6 +4,7 @@ import Game.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class TowerMenu extends JPanel {
     JButton normalTower = new JButton("Normal Tower");
@@ -19,11 +20,11 @@ public class TowerMenu extends JPanel {
         this.currentlySelectedTower = currentlySelectedTower;
     }
 
-    public TowerMenu(Game game) {
+    public TowerMenu(Game game, MainFrame mainFrame) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setVisible(true);
         setBackground(Color.GRAY);
-        game.setGameState(GameState.DEFAULT);
+        mainFrame.setGameState(GameState.DEFAULT);
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         normalTower.setPreferredSize(new Dimension(200, 30));
@@ -36,12 +37,12 @@ public class TowerMenu extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(slowTower);
         normalTower.addActionListener(e -> {
-            game.setGameState(GameState.PLACING_TOWER);
+            mainFrame.setGameState(GameState.PLACING_TOWER);
             currentlySelectedTower = normalTower.getText();
 
         });
         slowTower.addActionListener(e -> {
-            game.setGameState(GameState.PLACING_TOWER);
+            mainFrame.setGameState(GameState.PLACING_TOWER);
             currentlySelectedTower = slowTower.getText();
         });
     }

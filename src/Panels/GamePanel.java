@@ -25,22 +25,23 @@ public class GamePanel extends JPanel {
     Timer timer;
     Game game;
     TowerMenu towerMenu;
+    private boolean running = false;
 
 
-    public GamePanel(Game game, TowerMenu towerMenu) {
+    public GamePanel(Game game, MainFrame mainFrame) {
         this.game = game;
         this.setPreferredSize(new Dimension(750, 750));
         this.setVisible(true);
 
         timer = new Timer(16, this::actionPerformed);
-        timer.start();
+
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int tileX = e.getX() / 75;
                 int tileY = e.getY() / 75;
-                if (!game.getGameState().equals(GameState.PLACING_TOWER)) {
+                if (!mainFrame.getGameState().equals(GameState.PLACING_TOWER)) {
                     return;
                 }
                 if (!(level.getMap()[tileX][tileY] != 1 && (tileX < 10 && tileY < 10))) {
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel {
 
 
                 System.out.println(tileX + " " + tileY);
-                game.setGameState(GameState.DEFAULT);
+                mainFrame.setGameState(GameState.DEFAULT);
 
 
             }
@@ -93,6 +94,13 @@ public class GamePanel extends JPanel {
         towerManager.updateTowers(level);
         level.updateProjectiles();
         repaint();
+    }
+
+    public void startGame(){
+        if (!running) {
+            running = true;
+            timer.start();
+        }
     }
 
 }
