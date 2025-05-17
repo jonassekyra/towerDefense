@@ -14,47 +14,62 @@ public class MainFrame extends JFrame {
     Game game;
     private GameState gameState;
     private JPanel panels;
-    private CardLayout cardLayout;
+    CardLayout cardLayout;
+    private JPanel towerGamePanel;
 
     public MainFrame() {
         game = new Game();
         game.setHealth(100);
 
 
-        towerMenu = new TowerMenu(game,this);
-        gamePanel = new GamePanel(game, this);
-        startPanel = new StartPanel(this);
-
         cardLayout = new CardLayout();
         panels = new JPanel(cardLayout);
 
+        towerMenu = new TowerMenu(game, this);
+        gamePanel = new GamePanel(game, towerMenu, this);
+        startPanel = new StartPanel(this);
+
+        towerGamePanel = new JPanel();
+        towerGamePanel.setLayout(new BorderLayout());
+        towerGamePanel.add(gamePanel, BorderLayout.CENTER);
+        towerGamePanel.add(towerMenu, BorderLayout.EAST);
+
         panels.add(startPanel, GameState.START.name());
-        panels.add(gamePanel, GameState.DEFAULT.name());
+        panels.add(towerGamePanel, GameState.PLAY.name());
+
 
         this.setLayout(new BorderLayout());
         this.add(panels, BorderLayout.CENTER);
         this.setTitle("TowerDefense");
-        this.add(towerMenu, BorderLayout.EAST);
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //cardLayout.show(panels, "startPanel");
 
 
+        setGameState(GameState.START);
         this.pack();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        setGameState(GameState.START);
 
     }
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        if (gameState == null) {
+            System.out.println("Game state is null");
+        }
         switch (gameState) {
-            case START:
-                cardLayout.show(panels, "START");
+            case PLACING_TOWER:
+
                 break;
-            case DEFAULT:
-                cardLayout.show(panels, "DEFAULT");
+            case START:
+
+                cardLayout.show(panels, gameState.name());
+                break;
+            case PLAY:
+
+                cardLayout.show(panels, gameState.name());
+                //cardLayout.show(panels, "towerMenu");
                 gamePanel.startGame();
                 break;
         }
