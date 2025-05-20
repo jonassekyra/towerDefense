@@ -3,7 +3,8 @@ package Enemy;
 import Game.Game;
 import Position.Position;
 
-import java.util.ArrayList;
+
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -23,20 +24,32 @@ public class Enemy {
     private int damage;
     private int health;
     private Direction direction;
+    private EnemyType enemyType;
     private long spawnCooldown;
-    private int progres;
+    private int progress;
+    private Color color;
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public long getSpawnCooldown() {
         return spawnCooldown;
     }
 
-    public int getProgres() {
-        return progres;
+    public Enemy() {
     }
 
-    public void setProgres(int progres) {
-        this.progres = progres;
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     public void setSpawnCooldown(long spawnCooldown) {
@@ -51,7 +64,14 @@ public class Enemy {
         int temp = game.getHealth() - damage;
         game.setHealth(temp);
 
+    }
 
+    public EnemyType getEnemyType() {
+        return enemyType;
+    }
+
+    public void setEnemyType(EnemyType enemyType) {
+        this.enemyType = enemyType;
     }
 
     public void takeDamage(int damage) {
@@ -73,10 +93,6 @@ public class Enemy {
         return Objects.equals(visitedLocations, enemy.visitedLocations);
     }
 
-    public void setTargetPosition(int targetX, int targetY) {
-        this.targetX = targetX;
-        this.targetY = targetY;
-    }
 
 
     @Override
