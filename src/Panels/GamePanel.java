@@ -99,7 +99,12 @@ public class GamePanel extends JPanel {
     public void startGame(){
         if (!running) {
             running = true;
-            timer.start();
+            Timer deleyTimer = new Timer(5000, e ->{
+                timer.start();
+            });
+            deleyTimer.setRepeats(false);
+            deleyTimer.start();
+
         }
     }
 
