@@ -4,11 +4,11 @@ import Game.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 public class TowerMenu extends JPanel {
     JButton normalTower = new JButton("Normal Tower");
     JButton slowTower = new JButton("Slow Tower");
+    JButton nextWave = new JButton("Next Wave");
     private String currentlySelectedTower = null;
 
 
@@ -20,19 +20,22 @@ public class TowerMenu extends JPanel {
         this.currentlySelectedTower = currentlySelectedTower;
     }
 
-    public TowerMenu(Game game, MainFrame mainFrame) {
+    public TowerMenu(Game game, MainFrame mainFrame, WaveManager waveManager) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setVisible(true);
         setBackground(Color.GRAY);
-        mainFrame.setGameState(GameState.DEFAULT);
+        //mainFrame.setGameState(GameState.PLAY);
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         normalTower.setPreferredSize(new Dimension(200, 30));
+        nextWave.setPreferredSize(new Dimension(200, 30));
 
         slowTower.setPreferredSize(new Dimension(200, 30));
         slowTower.setVerticalAlignment(SwingConstants.CENTER);
         slowTower.setHorizontalAlignment(SwingConstants.CENTER);
-
+        nextWave.setHorizontalAlignment(SwingConstants.CENTER);
+        add(nextWave);
+        add(Box.createRigidArea(new Dimension(0, 20)));
         add(normalTower);
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(slowTower);
@@ -44,6 +47,10 @@ public class TowerMenu extends JPanel {
         slowTower.addActionListener(e -> {
             mainFrame.setGameState(GameState.PLACING_TOWER);
             currentlySelectedTower = slowTower.getText();
+        });
+
+        nextWave.addActionListener(e -> {
+            waveManager.setCurrentWave(waveManager.getCurrentWave() + 1);
         });
     }
 
