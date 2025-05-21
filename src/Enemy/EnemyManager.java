@@ -48,15 +48,20 @@ public class EnemyManager {
 
     public void spawnEnemy(Wave wave) {
         long now = System.currentTimeMillis();
+        int spawnedEnemies = wave.getSpawnedEnemies();
 
-        Enemy nextEnemy = wave.getEnemiesInWave().get(count);
+        if (wave.getSpawnedEnemies() >= wave.getEnemiesInWave().size()){
+            return;
+        }
 
-        if (now >= wave.getEnemiesInWave().get(count).getSpawnCooldown() + sinceLastSpawn) {
+        Enemy nextEnemy = wave.getEnemiesInWave().get(wave.getSpawnedEnemies());
+
+        if (now >= wave.getEnemiesInWave().get(spawnedEnemies).getSpawnCooldown() + sinceLastSpawn) {
             startEndPosition(nextEnemy);
             enemyStats(nextEnemy);
-            enemies.add(wave.getEnemiesInWave().get(count));
+            enemies.add(wave.getEnemiesInWave().get(spawnedEnemies));
             sinceLastSpawn = now;
-            count++;
+            wave.setSpawnedEnemies(spawnedEnemies + 1);
         }
 
     }
