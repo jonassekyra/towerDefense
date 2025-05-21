@@ -16,8 +16,11 @@ public class MainFrame extends JFrame {
     private JPanel panels;
     CardLayout cardLayout;
     private JPanel towerGamePanel;
+    WaveManager waveManager;
+
 
     public MainFrame() {
+        waveManager = new WaveManager();
         game = new Game();
         game.setHealth(100);
 
@@ -25,8 +28,8 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         panels = new JPanel(cardLayout);
 
-        towerMenu = new TowerMenu(game, this);
-        gamePanel = new GamePanel(game, towerMenu, this);
+        towerMenu = new TowerMenu(game, this, waveManager);
+        gamePanel = new GamePanel(game, towerMenu, this, waveManager);
         startPanel = new StartPanel(this);
 
         towerGamePanel = new JPanel();

@@ -3,7 +3,6 @@ package Attack;
 import Enemy.Enemy;
 import Level.Level;
 import Tower.Tower;
-import com.sun.security.jgss.GSSUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,13 +39,14 @@ public class SlowAttack implements AttackStrategy {
             return;
         }
         for (Enemy e : enemiesInRange) {
-            if (e.getProgres() > maxProgres){
-                maxProgres = e.getProgres();
+            if (e.getProgress() > maxProgres){
+                maxProgres = e.getProgress();
                 target = e;
             }
         }
         if (enemies.contains(target)) {
         }
+
         int startX = tower.getPosX() * 75+75/2-5;
         int startY = tower.getPosY() * 75+75/2-5;
         int targetX = target.getPixelX()+ 75 / 2 - 5;
@@ -56,6 +56,7 @@ public class SlowAttack implements AttackStrategy {
         level.getProjectiles().add(p);
 
         target.takeDamage(tower.getDamage());
+
         for (Enemy e : enemies) {
             if (e.equals(target)) {
                 e.setSpeed(1);

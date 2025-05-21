@@ -25,13 +25,16 @@ public class GamePanel extends JPanel {
     Timer timer;
     Game game;
     TowerMenu towerMenu;
+    WaveManager waveManager;
     private boolean running = false;
 
 
-    public GamePanel(Game game, MainFrame mainFrame) {
+    public GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager) {
+        this.waveManager = waveManager;
         this.game = game;
         this.setPreferredSize(new Dimension(750, 750));
         this.setVisible(true);
+
 
         timer = new Timer(16, this::actionPerformed);
 
@@ -53,6 +56,8 @@ public class GamePanel extends JPanel {
                             BufferedImage towerImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
                             towerManager.getTowers()[tileX][tileY] = new NormalTower(20, towerImage, 3, 3, tileX, tileY, new SingleAttack(), 1000);
                             towerManager.getTowers()[tileX][tileY].setImage(towerImage);
+                            towerManager.updateTowers(level);
+                            repaint();
                             towerMenu.setCurrentlySelectedTower(null);
                             break;
 
@@ -60,6 +65,8 @@ public class GamePanel extends JPanel {
                             BufferedImage slowImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
                             towerManager.getTowers()[tileX][tileY] = new SlowTower(20, slowImage, 3, 3, tileX, tileY, new SlowAttack(), 1000);
                             towerManager.getTowers()[tileX][tileY].setImage(slowImage);
+                            towerManager.updateTowers(level);
+                            repaint();
                             towerMenu.setCurrentlySelectedTower(null);
                             break;
                     }
@@ -70,7 +77,7 @@ public class GamePanel extends JPanel {
 
 
                 System.out.println(tileX + " " + tileY);
-                mainFrame.setGameState(GameState.DEFAULT);
+                mainFrame.setGameState(GameState.PLAY);
 
 
             }
@@ -90,7 +97,7 @@ public class GamePanel extends JPanel {
     }
 
     public void actionPerformed(ActionEvent e) {
-        level.getEnemyManager().spawnEnemy();
+        level.getEnemyManager().spawnEnemy(waveManager.getWaves().get(waveManager.getCurrentWave()));
         towerManager.updateTowers(level);
         level.updateProjectiles();
         repaint();

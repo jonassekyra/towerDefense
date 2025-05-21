@@ -14,10 +14,9 @@ public class StartPanel extends JPanel {
         setPreferredSize(new Dimension(750, 750));
 
         startButton = new JButton("Start");
-        startButton.setBounds(270, 400, 75, 70);
+        startButton.setBounds(750/2, 750/2, 75, 75);
         startButton.addActionListener(e -> {
-            mainFrame.setGameState(GameState.DEFAULT);
-
+            mainFrame.setGameState(GameState.PLAY);
 
         });
         this.add(startButton);

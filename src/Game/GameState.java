@@ -1,5 +1,5 @@
 package Game;
 
 public enum GameState {
-    DEFAULT,PLACING_TOWER,START
+    PLAY,PLACING_TOWER,START
 }

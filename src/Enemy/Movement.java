@@ -37,22 +37,22 @@ public class Movement {
                 enemy.setDirection(Direction.RIGHT);
                 enemy.getVisitedLocations().add(currentPosition.right());
                 enemy.setTargetX(enemy.getTargetX() + tileSize);
-                enemy.setProgres(enemy.getProgres() + 1);
+                enemy.setProgress(enemy.getProgress() + 1);
             } else if (level.isInBounds(tileX - 1, tileY) && level.getMap()[tileX - 1][tileY] == 1 && !enemy.getVisitedLocations().contains(currentPosition.left())) {
                 enemy.setDirection(Direction.LEFT);
                 enemy.getVisitedLocations().add(currentPosition.left());
                 enemy.setTargetX(enemy.getTargetX() - tileSize);
-                enemy.setProgres(enemy.getProgres() + 1);
+                enemy.setProgress(enemy.getProgress() + 1);
             } else if (level.isInBounds(tileX, tileY + 1) && level.getMap()[tileX][tileY + 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.down())) {
                 enemy.setDirection(Direction.DOWN);
                 enemy.getVisitedLocations().add(currentPosition.down());
                 enemy.setTargetY(enemy.getTargetY() + tileSize);
-                enemy.setProgres(enemy.getProgres() + 1);
+                enemy.setProgress(enemy.getProgress() + 1);
             } else if (level.isInBounds(tileX, tileY - 1) && level.getMap()[tileX][tileY - 1] == 1 && !enemy.getVisitedLocations().contains(currentPosition.up())) {
                 enemy.setDirection(Direction.UP);
                 enemy.getVisitedLocations().add(currentPosition.up());
                 enemy.setTargetY(enemy.getTargetY() - tileSize);
-                enemy.setProgres(enemy.getProgres() + 1);
+                enemy.setProgress(enemy.getProgress() + 1);
 
             }
 

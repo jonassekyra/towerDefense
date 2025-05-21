@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.Iterator;
 import Enemy.Movement;
 import Level.Level;
-import Tower.Tower;
 import Tower.TowerManager;
 
 public class Render {
@@ -23,10 +22,12 @@ public class Render {
 
     public void drawEnemy(Graphics g, Game game) {
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(Color.BLACK);
         Iterator<Enemy> it = enemyManager.getEnemies().iterator();
+
+
         while (it.hasNext()) {
             Enemy e = it.next();
+            g2D.setColor(e.getColor());
             if (e.isHasEnded()) {
                 it.remove();
                 continue;
@@ -54,7 +55,6 @@ public class Render {
             for (int j = 0; j < level.getMap().length; j++) {
                 if (towerManager.getTowers()[i][j] != null) {
                     g2d.drawImage(towerManager.getTowers()[i][j].getImage(), i * 75, j * 75, 75, 75, null);
-
                 }
             }
 
@@ -65,7 +65,6 @@ public class Render {
         g.setColor(Color.BLUE);
         for (Projectile projectile : level.getProjectiles() ){
             g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
-            //projectile.update();
         }
     }
 }

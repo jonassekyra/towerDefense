@@ -1,10 +1,11 @@
 package Enemy;
 
+import Game.Wave;
+import Game.WaveManager;
 import Level.MapLoader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.*;
+
 import java.util.ArrayList;
 
 
@@ -14,14 +15,12 @@ public class EnemyManager {
 
     public EnemyManager(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
-        loadEnemies();
-        startEndPosition();
 
     }
 
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<Enemy> loadedEnemies = new ArrayList<>();
+    private ArrayList<Wave> loadedEnemies = new ArrayList<>();
     int count = 0;
 
     public ArrayList<Enemy> getEnemies() {
@@ -43,25 +42,19 @@ public class EnemyManager {
 
     }
 
-    public void loadEnemies() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Enemies1"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                loadedEnemies.add(new Enemy(15));
-            }
-            System.out.println(enemies.size());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void addEnemies(WaveManager waveManager){
+       loadedEnemies.add(waveManager.getWaves().get(waveManager.getCurrentWave())); ;
     }
 
-    public void spawnEnemy() {
+    public void spawnEnemy(Wave wave) {
         long now = System.currentTimeMillis();
-        if (count>= loadedEnemies.size()) {
-            return;
-        }
-        if (now >= loadedEnemies.get(count).getSpawnCooldown() + sinceLastSpawn) {
-            enemies.add(loadedEnemies.get(count));
+
+        Enemy nextEnemy = wave.getEnemiesInWave().get(count);
+
+        if (now >= wave.getEnemiesInWave().get(count).getSpawnCooldown() + sinceLastSpawn) {
+            startEndPosition(nextEnemy);
+            enemyStats(nextEnemy);
+            enemies.add(wave.getEnemiesInWave().get(count));
             sinceLastSpawn = now;
             count++;
         }

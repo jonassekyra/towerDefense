@@ -40,8 +40,8 @@ public class SingleAttack implements AttackStrategy {
             return;
         }
         for (Enemy e : enemiesInRange) {
-            if (e.getProgres() > maxProgres){
-                maxProgres = e.getProgres();
+            if (e.getProgress() > maxProgres){
+                maxProgres = e.getProgress();
                 target = e;
             }
         }
@@ -50,7 +50,7 @@ public class SingleAttack implements AttackStrategy {
         int startY = tower.getPosY() * 75+75/2-5;
         int targetX = target.getPixelX()+ 75 / 2 - 5;
         int targetY = target.getPixelY()+ 75 / 2 - 5;
-        Projectile p = new Projectile(startX,startY,2,targetX,targetY);
+        Projectile p = new Projectile(startX,startY,10,targetX,targetY);
 
         level.getProjectiles().add(p);
 
