@@ -9,6 +9,7 @@ import java.util.Iterator;
 import Enemy.Movement;
 import Level.Level;
 import Tower.TowerManager;
+import Game.WaveManager;
 
 public class Render {
     EnemyManager enemyManager;
@@ -66,5 +67,12 @@ public class Render {
         for (Projectile projectile : level.getProjectiles() ){
             g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
         }
+    }
+//
+    public void drawWave(Graphics g, WaveManager waveManager) {
+        Graphics g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLUE);
+        g2d.setFont(new Font("Arial", Font.BOLD, 25));
+        g2d.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 630, 30);
     }
 }
