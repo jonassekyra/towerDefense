@@ -7,6 +7,7 @@ import Level.Level;
 import Render.Render;
 import Tower.NormalTower;
 import Tower.SlowTower;
+import Tower.Tower;
 import Tower.TowerManager;
 
 import javax.imageio.ImageIO;
@@ -21,19 +22,28 @@ import java.io.IOException;
 public class GamePanel extends JPanel {
     Level level = new Level();
     Render render = new Render(level.getEnemyManager(), level.getMovement(), level);
-    TowerManager towerManager = new TowerManager(level);
+
     Timer timer;
     Game game;
+    TowerManager towerManager;
     TowerMenu towerMenu;
     WaveManager waveManager;
     private boolean running = false;
+    private MainFrame mainFrame;
+    private ShopManager shopManager;
 
 
-    public GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager) {
+    public GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager, ShopManager shopManager) {
         this.waveManager = waveManager;
         this.game = game;
+        this.mainFrame = mainFrame;
+        this.shopManager = shopManager;
+        towerManager = new TowerManager(level,game);
         this.setPreferredSize(new Dimension(750, 750));
         this.setVisible(true);
+        shopManager.setCoins(150);
+
+        waveManager.setEnemyManager(level.getEnemyManager());
 
 
         timer = new Timer(16, this::actionPerformed);
@@ -53,21 +63,26 @@ public class GamePanel extends JPanel {
                 try {
                     switch (towerMenu.getCurrentlySelectedTower()) {
                         case "Normal Tower":
-                            BufferedImage towerImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
-                            towerManager.getTowers()[tileX][tileY] = new NormalTower(20, towerImage, 3, 3, tileX, tileY, new SingleAttack(), 1000);
-                            towerManager.getTowers()[tileX][tileY].setImage(towerImage);
-                            towerManager.updateTowers(level);
-                            repaint();
-                            towerMenu.setCurrentlySelectedTower(null);
-                            break;
+                            Tower tower = Tower.createTower(1, tileX, tileY);
+                            if (shopManager.buyTower(tower)) {
+                                towerManager.getTowers()[tileX][tileY] = tower;
+                                towerManager.updateTowers(level);
+                                repaint();
+                                break;
+                            }
 
-                        case "Slow Tower":
-                            BufferedImage slowImage = ImageIO.read(getClass().getResource("/tiles/Red.png"));
-                            towerManager.getTowers()[tileX][tileY] = new SlowTower(20, slowImage, 3, 3, tileX, tileY, new SlowAttack(), 1000);
-                            towerManager.getTowers()[tileX][tileY].setImage(slowImage);
-                            towerManager.updateTowers(level);
-                            repaint();
                             towerMenu.setCurrentlySelectedTower(null);
+
+                            break;
+                        case "Slow Tower":
+                            Tower tower1 = Tower.createTower(2, tileX, tileY);
+                            if (shopManager.buyTower(tower1)) {
+                                towerManager.getTowers()[tileX][tileY] = tower1;
+                                towerManager.updateTowers(level);
+                                repaint();
+                                break;
+                            }
+
                             break;
                     }
 
@@ -92,21 +107,29 @@ public class GamePanel extends JPanel {
         render.drawLevel(g2d, level);
         render.drawEnemy(g2d, game);
         render.drawTowers(g2d, level, towerManager);
-        render.renderProjectile(g2d,level);
+        render.renderProjectile(g2d, level);
+        render.drawWave(g2d, waveManager);
+        render.drawCoins(g2d,game.getShopManager());
 
     }
 
     public void actionPerformed(ActionEvent e) {
-        level.getEnemyManager().spawnEnemy(waveManager.getWaves().get(waveManager.getCurrentWave()));
+        if (waveManager.getCurrentWave() < waveManager.getWaves().size()) {
+            level.getEnemyManager().spawnEnemy(waveManager.getWaves().get(waveManager.getCurrentWave()));
+        }
         towerManager.updateTowers(level);
         level.updateProjectiles();
+        if (waveManager.endGame(mainFrame)) {
+            timer.stop();
+        }
+
         repaint();
     }
 
-    public void startGame(){
+    public void startGame() {
         if (!running) {
             running = true;
-            Timer deleyTimer = new Timer(5000, e ->{
+            Timer deleyTimer = new Timer(500, e -> {
                 timer.start();
             });
             deleyTimer.setRepeats(false);
@@ -115,4 +138,7 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public Level getLevel() {
+        return level;
+    }
 }
