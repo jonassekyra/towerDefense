@@ -1,5 +1,6 @@
 package Game;
 
+import Panels.EndPanel;
 import Panels.GamePanel;
 import Panels.StartPanel;
 import Panels.TowerMenu;
@@ -16,6 +17,7 @@ public class MainFrame extends JFrame {
     private JPanel panels;
     CardLayout cardLayout;
     private JPanel towerGamePanel;
+    private EndPanel endPanel;
     WaveManager waveManager;
 
 
@@ -23,13 +25,15 @@ public class MainFrame extends JFrame {
         waveManager = new WaveManager();
         game = new Game();
         game.setHealth(100);
+        setResizable(false);
 
 
         cardLayout = new CardLayout();
         panels = new JPanel(cardLayout);
 
         towerMenu = new TowerMenu(game, this, waveManager);
-        gamePanel = new GamePanel(game, towerMenu, this, waveManager);
+        gamePanel = new GamePanel(game, towerMenu, this, waveManager, game.getShopManager());
+        endPanel = new EndPanel();
         startPanel = new StartPanel(this);
 
         towerGamePanel = new JPanel();
@@ -39,6 +43,7 @@ public class MainFrame extends JFrame {
 
         panels.add(startPanel, GameState.START.name());
         panels.add(towerGamePanel, GameState.PLAY.name());
+        panels.add(endPanel, GameState.END.name());
 
 
         this.setLayout(new BorderLayout());
@@ -63,16 +68,12 @@ public class MainFrame extends JFrame {
         }
         switch (gameState) {
             case PLACING_TOWER:
-
                 break;
-            case START:
-
+            case START, END:
                 cardLayout.show(panels, gameState.name());
                 break;
             case PLAY:
-
                 cardLayout.show(panels, gameState.name());
-                //cardLayout.show(panels, "towerMenu");
                 gamePanel.startGame();
                 break;
         }
