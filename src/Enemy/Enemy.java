@@ -28,6 +28,7 @@ public class Enemy {
     private long spawnCooldown;
     private int progress;
     private Color color;
+    private int reward;
 
     public Color getColor() {
         return color;
@@ -220,4 +221,13 @@ public class Enemy {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getReward() {
+        return reward;
+    }
+
+    public void setReward(int reward) {
+        this.reward = reward;
+    }
 }
+
