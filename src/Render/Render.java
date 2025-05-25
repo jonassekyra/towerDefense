@@ -4,8 +4,10 @@ import Attack.Projectile;
 import Enemy.Enemy;
 import Game.Game;
 import Enemy.EnemyManager;
+import Game.ShopManager;
 import java.awt.*;
 import java.util.Iterator;
+
 import Enemy.Movement;
 import Level.Level;
 import Tower.TowerManager;
@@ -15,6 +17,7 @@ public class Render {
     EnemyManager enemyManager;
     Movement movement;
     Level level;
+
     public Render(EnemyManager enemyManager, Movement movement, Level level) {
         this.enemyManager = enemyManager;
         this.movement = movement;
@@ -35,13 +38,14 @@ public class Render {
             }
             g2D.fillOval(e.getPixelX(), e.getPixelY(), 75, 75);
             if (e.isHasStarted()) {
-                movement.move(e, level,game);
+                movement.move(e, level, game);
             } else {
                 e.setHasStarted(true);
             }
         }
     }
-    public void drawLevel(Graphics g,Level level) {
+
+    public void drawLevel(Graphics g, Level level) {
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < level.getTiles().length; i++) {
             for (int j = 0; j < level.getTiles()[i].length; j++) {
@@ -50,6 +54,7 @@ public class Render {
         }
 
     }
+
     public void drawTowers(Graphics g, Level level, TowerManager towerManager) {
         Graphics2D g2d = (Graphics2D) g;
         for (int i = 0; i < level.getMap().length; i++) {
@@ -62,17 +67,26 @@ public class Render {
         }
     }
 
-    public void renderProjectile(Graphics g,Level level) {
+    public void renderProjectile(Graphics g, Level level) {
         g.setColor(Color.BLUE);
-        for (Projectile projectile : level.getProjectiles() ){
+        for (Projectile projectile : level.getProjectiles()) {
             g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
         }
     }
-//
+
+    //
     public void drawWave(Graphics g, WaveManager waveManager) {
         Graphics g2d = (Graphics2D) g;
         g2d.setColor(Color.BLUE);
         g2d.setFont(new Font("Arial", Font.BOLD, 25));
-        g2d.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 630, 30);
+        g2d.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 60);
+    }
+
+    public void drawCoins(Graphics g, ShopManager shopManager) {
+        Graphics g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial", Font.BOLD, 25));
+        g2d.drawString("coins: " + shopManager.getCoins(),600,30);
+
     }
 }
