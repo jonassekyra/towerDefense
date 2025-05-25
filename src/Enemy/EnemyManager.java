@@ -42,15 +42,13 @@ public class EnemyManager {
 
     }
 
-    public void addEnemies(WaveManager waveManager){
-       loadedEnemies.add(waveManager.getWaves().get(waveManager.getCurrentWave())); ;
-    }
 
     public void spawnEnemy(Wave wave) {
+
         long now = System.currentTimeMillis();
         int spawnedEnemies = wave.getSpawnedEnemies();
 
-        if (wave.getSpawnedEnemies() >= wave.getEnemiesInWave().size()){
+        if (wave.getSpawnedEnemies() >= wave.getEnemiesInWave().size()) {
             return;
         }
 
@@ -72,24 +70,32 @@ public class EnemyManager {
                 enemy.setColor(Color.CYAN);
                 enemy.setHealth(100);
                 enemy.setSpeed(2);
+                enemy.setDamage(20);
+                enemy.setReward(15);
                 break;
 
             case FAST:
                 enemy.setColor(Color.RED);
                 enemy.setHealth(50);
                 enemy.setSpeed(5);
+                enemy.setDamage(15);
+                enemy.setReward(10);
                 break;
 
             case TANK:
                 enemy.setColor(Color.GRAY);
                 enemy.setHealth(250);
                 enemy.setSpeed(1);
+                enemy.setDamage(35);
+                enemy.setReward(35);
                 break;
 
             case BOSS:
                 enemy.setColor(Color.ORANGE);
                 enemy.setHealth(500);
+                enemy.setDamage(90);
                 enemy.setSpeed(2);
+                enemy.setReward(100);
                 break;
 
         }
