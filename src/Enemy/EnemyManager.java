@@ -1,7 +1,7 @@
 package Enemy;
 
 import Game.Wave;
-import Game.WaveManager;
+
 import Level.MapLoader;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class EnemyManager {
-    private MapLoader mapLoader;
+    private final MapLoader mapLoader;
     private long sinceLastSpawn = 0;
 
     public EnemyManager(MapLoader mapLoader) {
@@ -19,8 +19,7 @@ public class EnemyManager {
     }
 
 
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<Wave> loadedEnemies = new ArrayList<>();
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
