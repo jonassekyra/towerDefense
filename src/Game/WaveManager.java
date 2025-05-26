@@ -87,9 +87,10 @@ public class WaveManager {
         }
     }
 
-    public boolean endGame() {
-        if (currentWave == numberOfWaves) {
-            System.out.println("wave has ended");
+    public boolean endGame(MainFrame mainFrame) {
+        if ((currentWave + 1) == numberOfWaves && enemyManager.getEnemies().isEmpty()) {
+            System.out.println("game has ended");
+            mainFrame.setGameState(GameState.END);
             return true;
         } else {
             return false;
