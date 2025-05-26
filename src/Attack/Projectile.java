@@ -19,6 +19,8 @@ private boolean active;
         this.speed = speed;
         this.targetX = targetX;
         this.targetY = targetY;
+        this.damage = damage;
+        this.isSlowing = isSlowing;
         this.active = true;
     }
 
@@ -54,7 +56,24 @@ private boolean active;
         int directionY = projectile.getY() - enemy.getPixelY();
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
-        return distance < 32.5;
+        //return distance < 32.5;
+        return distance<(enemyRadius + projectileRadius);
+    }
+
+    public boolean isSlowing() {
+        return isSlowing;
+    }
+
+    public void setSlowing(boolean slowing) {
+        isSlowing = slowing;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public int getX() {
