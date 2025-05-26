@@ -15,7 +15,7 @@ private boolean active;
     public Projectile() {
     }
 
-    public Projectile(int x, int y, int speed, int targetX, int targetY) {
+    public Projectile(int x, int y, int speed, int targetX, int targetY, int damage, boolean isSlowing) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -54,8 +54,18 @@ private boolean active;
     }
 
     public boolean hasHit(Projectile projectile, Enemy enemy){
-        int directionX = projectile.getX() - enemy.getPixelX();
-        int directionY = projectile.getY() - enemy.getPixelY();
+        int projectileCenterX = this.x;
+        int projectileCenterY = this.y;
+
+        int enemyCenterX = enemy.getPixelX() + 75/2;
+        int enemyCenterY = enemy.getPixelY() + 75/2;
+
+
+        int directionX = projectileCenterX - enemyCenterX;
+        int directionY = projectileCenterY - enemyCenterY;
+
+        double projectileRadius = 5;
+        double enemyRadius = 37.5;
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
         //return distance < 32.5;
