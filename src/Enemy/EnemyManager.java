@@ -21,7 +21,6 @@ public class EnemyManager {
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Wave> loadedEnemies = new ArrayList<>();
-    int count = 0;
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
@@ -69,6 +68,7 @@ public class EnemyManager {
             case NORMAL:
                 enemy.setColor(Color.CYAN);
                 enemy.setHealth(100);
+                enemy.setMaxHealth(100);
                 enemy.setSpeed(2);
                 enemy.setDamage(20);
                 enemy.setReward(15);
@@ -77,6 +77,7 @@ public class EnemyManager {
             case FAST:
                 enemy.setColor(Color.RED);
                 enemy.setHealth(50);
+                enemy.setMaxHealth(50);
                 enemy.setSpeed(5);
                 enemy.setDamage(15);
                 enemy.setReward(10);
@@ -85,6 +86,7 @@ public class EnemyManager {
             case TANK:
                 enemy.setColor(Color.GRAY);
                 enemy.setHealth(250);
+                enemy.setMaxHealth(250);
                 enemy.setSpeed(1);
                 enemy.setDamage(35);
                 enemy.setReward(35);
@@ -93,6 +95,7 @@ public class EnemyManager {
             case BOSS:
                 enemy.setColor(Color.ORANGE);
                 enemy.setHealth(500);
+                enemy.setMaxHealth(500);
                 enemy.setDamage(90);
                 enemy.setSpeed(2);
                 enemy.setReward(100);
