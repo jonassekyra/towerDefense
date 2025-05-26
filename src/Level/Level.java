@@ -1,26 +1,32 @@
 package Level;
 
+import Attack.AttackUtils;
 import Attack.Projectile;
 import Enemy.Enemy;
+import Game.ShopManager;
 import Tiles.Tile;
 
 import Enemy.Movement;
 import Enemy.EnemyManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 
 public class Level {
-    private HashMap<String, Tile> tileTypes = new HashMap<>();
-    //private ArrayList<Enemy> enemies = new ArrayList<>();
     private Tile[][] tiles;
     private int[][] map;
-    //private Tower[][] towers = new Tower[10][10];
-    Movement movement = new Movement();
-    MapLoader mapLoader = new MapLoader();
-    EnemyManager enemyManager = new EnemyManager(mapLoader);
+    private Movement movement = new Movement();
+    private MapLoader mapLoader = new MapLoader();
+    private EnemyManager enemyManager = new EnemyManager(mapLoader);
+    private ShopManager shopManager;
+
+    public Level(ShopManager shopManager) {
+        this.shopManager = shopManager;
+        map = mapLoader.getMap();
+        tiles = mapLoader.getTiles();
+
+    }
 
     private ArrayList<Projectile> projectiles = new ArrayList<>();
 
@@ -41,7 +47,11 @@ public class Level {
             }
             for (Enemy enemy : enemyManager.getEnemies()) {
                 if (projectile.hasHit(projectile,enemy)){
-                    enemy.takeDamage(20);
+                    if (projectile.isSlowing()){
+                        enemy.setSpeed(1);
+                    }
+                    enemy.takeDamage(projectile.getDamage());
+                    AttackUtils.removeDeadEnemy(enemyManager.getEnemies(),shopManager,enemy);
                     System.out.println(enemy.getHealth());
                     projectile.setActive(false);
                     break;
@@ -51,12 +61,6 @@ public class Level {
 
     }
 
-
-    public Level() {
-        map = mapLoader.getMap();
-        tiles = mapLoader.getTiles();
-
-    }
 
 
     public int[][] getMap() {
