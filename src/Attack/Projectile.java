@@ -8,6 +8,8 @@ private int y;
 private int speed;
 private int targetX;
 private int targetY;
+private int damage;
+private boolean isSlowing;
 private boolean active;
 
     public Projectile() {
