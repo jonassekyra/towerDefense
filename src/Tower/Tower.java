@@ -1,25 +1,18 @@
 package Tower;
 
 import Attack.AttackStrategy;
-import Attack.Projectile;
 import Attack.SingleAttack;
 import Attack.SlowAttack;
-import Enemy.Enemy;
 import Game.ShopManager;
 import Level.Level;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.IOException;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public abstract class Tower {
     protected int damage;
-    protected Time attackSpeed;
     protected BufferedImage image;
     protected int rangeX;
     protected int rangeY;
@@ -48,9 +41,6 @@ public abstract class Tower {
         return rangeX;
     }
 
-    public void setRangeX(int rangeX) {
-        this.rangeX = rangeX;
-    }
 
     public int getRangeY() {
         return rangeY;
@@ -60,21 +50,13 @@ public abstract class Tower {
         return posX;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
+
 
     public int getPosY() {
         return posY;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
 
-    public void setRangeY(int rangeY) {
-        this.rangeY = rangeY;
-    }
 
     public Tower() {
     }
@@ -83,55 +65,19 @@ public abstract class Tower {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
 
-    public Time getAttackSpeed() {
-        return attackSpeed;
-    }
-
-    public void setAttackSpeed(Time attackSpeed) {
-        this.attackSpeed = attackSpeed;
-    }
 
     public BufferedImage getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
 
     public int getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 
-    public AttackStrategy getAttackStrategy() {
-        return attackStrategy;
-    }
 
-    public void setAttackStrategy(AttackStrategy attackStrategy) {
-        this.attackStrategy = attackStrategy;
-    }
-
-    public List<Enemy> enemiesInRange(ArrayList<Enemy> enemies) {
-        List<Enemy> results = new ArrayList<>();
-        for (Enemy enemy : enemies) {
-            int distanceX = enemy.getX() - posX;
-            int distanceY = enemy.getY() - posY;
-
-            if (Math.abs(distanceX) < rangeX && Math.abs(distanceY) < rangeY) {
-                results.add(enemy);
-            }
-
-        }
-        return results;
-    }
 
     public void canAttack(Level level, ShopManager shopManager) {
         //https://gamedev.stackexchange.com/questions/158616/how-do-i-create-a-delay-or-cooldown-timer
@@ -143,18 +89,19 @@ public abstract class Tower {
     }
 
     public static Tower createTower(int type, int posX, int posY) throws IOException {
-        switch (type) {
-            case 1:
-                BufferedImage image = ImageIO.read(Tower.class.getResource("/tiles/Red.png"));
+        return switch (type) {
+            case 1 -> {
+                BufferedImage image = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/tiles/Red.png")));
 
-                return new NormalTower(20, image, 2, 2, posX, posY, new SingleAttack(), 750, 50);
-            case 2:
-                BufferedImage image1 = ImageIO.read(Tower.class.getResource("/tiles/Red.png"));
+                yield new NormalTower(20, image, 3, 3, posX, posY, new SingleAttack(), 750, 50);
+            }
+            case 2 -> {
+                BufferedImage image1 = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/tiles/Red.png")));
 
-                return new SlowTower(10, image1, 2, 2, posX, posY, new SlowAttack(), 1000, 80);
-            default:
-                return null;
-        }
+                yield new SlowTower(10, image1, 3, 3, posX, posY, new SlowAttack(), 2000, 100);
+            }
+            default -> null;
+        };
     }
 
 }

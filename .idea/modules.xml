@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/rcs/rcs.iml" filepath="$PROJECT_DIR$/rcs/rcs.iml" />
       <module fileurl="file://$PROJECT_DIR$/towerDefense.iml" filepath="$PROJECT_DIR$/towerDefense.iml" />
     </modules>
   </component>

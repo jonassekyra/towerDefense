@@ -20,7 +20,5 @@ public class Wave {
         return enemiesInWave;
     }
 
-    public void setEnemiesInWave(ArrayList<Enemy> enemiesInWave) {
-        this.enemiesInWave = enemiesInWave;
-    }
+
 }

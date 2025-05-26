@@ -15,17 +15,6 @@ public class Tile {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    public TileType getTileType() {
-        return tileType;
-    }
-
-    public void setTileType(TileType tileType) {
-        this.tileType = tileType;
-    }
 
     @Override
     public String toString() {

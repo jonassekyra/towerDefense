@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         panels = new JPanel(cardLayout);
 
-        towerMenu = new TowerMenu(game, this, waveManager);
+        towerMenu = new TowerMenu(this, waveManager);
         gamePanel = new GamePanel(game, towerMenu, this, waveManager, game.getShopManager());
         endPanel = new EndPanel();
         startPanel = new StartPanel(this);

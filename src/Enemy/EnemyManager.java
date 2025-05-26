@@ -34,7 +34,6 @@ public class EnemyManager {
         e.setPixelY(mapLoader.getStartPosition().getY() * 75);
         e.setEndX(mapLoader.getEndPosition().getX());
         e.setEndY(mapLoader.getEndPosition().getY());
-        System.out.println("neco");
         e.setTargetX(e.getX() * 75);
         e.setTargetY(e.getY() * 75);
 

@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Enemy.*;
-import Level.Level;
+
 
 public class WaveManager {
     private int currentWave;
     private int numberOfWaves;
-    private ArrayList<Wave> waves = new ArrayList<>();
+    private final ArrayList<Wave> waves = new ArrayList<>();
     private EnemyManager enemyManager;
 
     public WaveManager() {
@@ -41,14 +41,10 @@ public class WaveManager {
                 String[] split = line.split(",");
                 enemy.setEnemyType(EnemyType.valueOf(split[0].toUpperCase()));
                 enemy.setSpawnCooldown(Integer.parseInt(split[1]));
-                //enemyStats(enemy);
                 wave.getEnemiesInWave().add(enemy);
 
-                //loadedEnemies.add(enemy);
             }
-            //System.out.println(enemies.size());
             numberOfWaves = waves.size();
-            System.out.println(waves.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,31 +54,20 @@ public class WaveManager {
         return currentWave;
     }
 
-    public void setCurrentWave(int currentWave) {
-        this.currentWave = currentWave;
-    }
 
-    public int getNumberOfWaves() {
-        return numberOfWaves;
-    }
-
-    public void setNumberOfWaves(int numberOfWaves) {
-        this.numberOfWaves = numberOfWaves;
-    }
 
     public ArrayList<Wave> getWaves() {
         return waves;
     }
 
-    public void setWaves(ArrayList<Wave> waves) {
-        this.waves = waves;
-    }
+
 
     public void nextWave() {
         if (enemyManager.getEnemies().isEmpty() && currentWave + 1 < numberOfWaves) {
             currentWave++;
 
         } else {
+            //musi se to vypsat na obrazovku
             System.out.println("wave hasnt been cleared");
         }
     }

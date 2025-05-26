@@ -1,10 +1,8 @@
 package Tower;
 
 import Attack.AttackStrategy;
-import Attack.SingleAttack;
 
 import java.awt.image.BufferedImage;
-import java.sql.Time;
 
 public class NormalTower extends Tower {
 
@@ -12,6 +10,4 @@ public class NormalTower extends Tower {
         super(damage, image, rangeX, rangeY, posX, posY,attackStrategy,cooldown, cost);
     }
 
-    public NormalTower() {
-    }
 }

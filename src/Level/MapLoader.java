@@ -6,10 +6,10 @@ import Tiles.TileType;
 
 import javax.imageio.ImageIO;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MapLoader {
     private Position startPosition;
@@ -32,13 +32,13 @@ public class MapLoader {
 
     HashMap<String, Tile> tileTypes = new HashMap<>();
     int[][] map = new int[10][10];
-    private Tile[][] tiles = new Tile[10][10];
+    private final Tile[][] tiles = new Tile[10][10];
 
     public void createTiles() {
 
         try {
-            tileTypes.put("path", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/brown.png")), TileType.PATH));
-            tileTypes.put("grass", new Tile(ImageIO.read(Tile.class.getResource("/Tiles/zelena.png")), TileType.GRASS));
+            tileTypes.put("path", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/Tiles/brown.png"))), TileType.PATH));
+            tileTypes.put("grass", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/Tiles/zelena.png"))), TileType.GRASS));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -76,8 +76,6 @@ public class MapLoader {
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -93,7 +91,4 @@ public class MapLoader {
         return map;
     }
 
-    public void setMap(int[][] map) {
-        this.map = map;
-    }
 }

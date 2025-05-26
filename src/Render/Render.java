@@ -40,10 +40,9 @@ public class Render {
             g2D.fillOval(e.getPixelX(), e.getPixelY(), 75, 75);
 
 
-            float healthPercent = (float)(e.getHealth() /(float)e.getMaxHealth());
+            float healthPercent = (e.getHealth() /(float)e.getMaxHealth());
             int maxWidth = 75;
             int currentWidth =(int)(maxWidth * healthPercent);
-            System.out.println(currentWidth);
             g2D.setColor(Color.BLACK);
             g2D.drawRect(e.getPixelX() , e.getPixelY()- (32 / 2), 75, 10);
             g2D.setColor(Color.GREEN);
@@ -87,19 +86,17 @@ public class Render {
         }
     }
 
-    //
+
     public void drawWave(Graphics g, WaveManager waveManager) {
-        Graphics g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLUE);
-        g2d.setFont(new Font("Arial", Font.BOLD, 25));
-        g2d.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 60);
+        g.setColor(Color.BLUE);
+        g.setFont(new Font("Arial", Font.BOLD, 25));
+        g.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 60);
     }
 
     public void drawCoins(Graphics g, ShopManager shopManager) {
-        Graphics g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.BOLD, 25));
-        g2d.drawString("coins: " + shopManager.getCoins(), 600, 30);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 25));
+        g.drawString("coins: " + shopManager.getCoins(), 600, 30);
 
     }
 

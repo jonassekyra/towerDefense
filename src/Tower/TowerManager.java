@@ -4,12 +4,10 @@ import Game.Game;
 import Level.Level;
 
 public class TowerManager {
-    private Level level;
-    private Game game;
+    private final Game game;
     private final Tower[][] towers = new Tower[10][10];
 
-    public TowerManager(Level level, Game game) {
-        this.level = level;
+    public TowerManager(Game game) {
         this.game = game;
     }
 

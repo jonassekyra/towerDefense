@@ -20,7 +20,7 @@ public class Enemy {
     private int endY;
     private boolean hasStarted = false;
     private boolean hasEnded = false;
-    private HashSet<Position> visitedLocations = new HashSet<>();
+    private final HashSet<Position> visitedLocations = new HashSet<>();
     private int damage;
     private int health;
     private int maxHealth;
@@ -166,9 +166,7 @@ public class Enemy {
         this.targetY = targetY;
     }
 
-    public int getDamage() {
-        return damage;
-    }
+
 
     public void setDamage(int damage) {
         this.damage = damage;

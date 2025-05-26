@@ -3,11 +3,9 @@ package Attack;
 import Enemy.Enemy;
 import Game.ShopManager;
 import Level.Level;
-import Panels.EndPanel;
 import Tower.Tower;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class AttackUtils {
@@ -21,7 +19,7 @@ public class AttackUtils {
     }
 
     public static Enemy getFirstTarget(List<Enemy> enemiesInRange) {
-        int maxProgres = Integer.MIN_VALUE;
+        int maxProgress = Integer.MIN_VALUE;
         Enemy target = null;
 
         if (enemiesInRange.isEmpty()) {
@@ -29,8 +27,8 @@ public class AttackUtils {
         }
 
         for (Enemy e : enemiesInRange) {
-            if (e.getProgress() > maxProgres) {
-                maxProgres = e.getProgress();
+            if (e.getProgress() > maxProgress) {
+                maxProgress = e.getProgress();
                 target = e;
             }
         }

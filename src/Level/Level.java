@@ -14,12 +14,14 @@ import java.util.Iterator;
 
 
 public class Level {
-    private Tile[][] tiles;
-    private int[][] map;
-    private Movement movement = new Movement();
-    private MapLoader mapLoader = new MapLoader();
-    private EnemyManager enemyManager = new EnemyManager(mapLoader);
-    private ShopManager shopManager;
+    private final Tile[][] tiles;
+    private final int[][] map;
+    private final Movement movement = new Movement();
+    private final MapLoader mapLoader = new MapLoader();
+    private final EnemyManager enemyManager = new EnemyManager(mapLoader);
+    private final ShopManager shopManager;
+    private final ArrayList<Projectile> projectiles = new ArrayList<>();
+
 
     public Level(ShopManager shopManager) {
         this.shopManager = shopManager;
@@ -28,7 +30,6 @@ public class Level {
 
     }
 
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
 
     public ArrayList<Projectile> getProjectiles() {
@@ -46,13 +47,12 @@ public class Level {
                 continue;
             }
             for (Enemy enemy : enemyManager.getEnemies()) {
-                if (projectile.hasHit(projectile,enemy)){
+                if (projectile.hasHit(enemy)){
                     if (projectile.isSlowing()){
                         enemy.setSpeed(1);
                     }
                     enemy.takeDamage(projectile.getDamage());
                     AttackUtils.removeDeadEnemy(enemyManager.getEnemies(),shopManager,enemy);
-                    System.out.println(enemy.getHealth());
                     projectile.setActive(false);
                     break;
                 }

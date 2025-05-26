@@ -1,7 +1,6 @@
 package Game;
 
 import Enemy.Enemy;
-import Panels.EndPanel;
 import Tower.Tower;
 
 public class ShopManager {

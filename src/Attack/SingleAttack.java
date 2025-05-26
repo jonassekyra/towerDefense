@@ -20,6 +20,8 @@ public class SingleAttack implements AttackStrategy {
             return;
         }
         List<Enemy> enemiesInRange = AttackUtils.getEnemiesInRange(level, tower);
+
+
         Enemy target = AttackUtils.getFirstTarget(enemiesInRange);
 
 

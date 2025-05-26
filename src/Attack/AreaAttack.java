@@ -2,7 +2,7 @@ package Attack;
 
 import Level.Level;
 import Tower.Tower;
-
+import Game.ShopManager;
 public class AreaAttack implements AttackStrategy {
     private Tower tower;
 
@@ -11,7 +11,7 @@ public class AreaAttack implements AttackStrategy {
     }
 
     @Override
-    public void attack(Level level, Tower tower) {
+    public void attack(Level level, Tower tower,ShopManager shopManager) {
 
     }
 }

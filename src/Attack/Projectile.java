@@ -5,15 +5,13 @@ import Enemy.Enemy;
 public class Projectile {
 private int x;
 private int y;
-private int speed;
-private int targetX;
-private int targetY;
-private int damage;
-private boolean isSlowing;
+private final int speed;
+private final int targetX;
+private final int targetY;
+private final int damage;
+private final boolean isSlowing;
 private boolean active;
 
-    public Projectile() {
-    }
 
     public Projectile(int x, int y, int speed, int targetX, int targetY, int damage, boolean isSlowing) {
         this.x = x;
@@ -53,7 +51,7 @@ private boolean active;
 
     }
 
-    public boolean hasHit(Projectile projectile, Enemy enemy){
+    public boolean hasHit(Enemy enemy){
         int projectileCenterX = this.x;
         int projectileCenterY = this.y;
 
@@ -68,7 +66,6 @@ private boolean active;
         double enemyRadius = 37.5;
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
-        //return distance < 32.5;
         return distance<(enemyRadius + projectileRadius);
     }
 
@@ -76,56 +73,20 @@ private boolean active;
         return isSlowing;
     }
 
-    public void setSlowing(boolean slowing) {
-        isSlowing = slowing;
-    }
 
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+
 
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getTargetX() {
-        return targetX;
-    }
-
-    public void setTargetX(int targetX) {
-        this.targetX = targetX;
-    }
-
-    public int getTargetY() {
-        return targetY;
-    }
-
-    public void setTargetY(int targetY) {
-        this.targetY = targetY;
     }
 
     public boolean isActive() {
