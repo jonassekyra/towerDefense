@@ -23,12 +23,21 @@ public class Enemy {
     private HashSet<Position> visitedLocations = new HashSet<>();
     private int damage;
     private int health;
+    private int maxHealth;
     private Direction direction;
     private EnemyType enemyType;
     private long spawnCooldown;
     private int progress;
     private Color color;
     private int reward;
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
 
     public Color getColor() {
         return color;
