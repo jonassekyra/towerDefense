@@ -5,6 +5,7 @@ import Enemy.Enemy;
 import Game.Game;
 import Enemy.EnemyManager;
 import Game.ShopManager;
+
 import java.awt.*;
 import java.util.Iterator;
 
@@ -37,6 +38,17 @@ public class Render {
                 continue;
             }
             g2D.fillOval(e.getPixelX(), e.getPixelY(), 75, 75);
+
+
+            float healthPercent = (float)(e.getHealth() /(float)e.getMaxHealth());
+            int maxWidth = 75;
+            int currentWidth =(int)(maxWidth * healthPercent);
+            System.out.println(currentWidth);
+            g2D.setColor(Color.BLACK);
+            g2D.drawRect(e.getPixelX() , e.getPixelY()- (32 / 2), 75, 10);
+            g2D.setColor(Color.GREEN);
+
+            g2D.fillRect(e.getPixelX(), e.getPixelY() - (32 / 2), currentWidth, 10);
             if (e.isHasStarted()) {
                 movement.move(e, level, game);
             } else {
@@ -70,7 +82,8 @@ public class Render {
     public void renderProjectile(Graphics g, Level level) {
         g.setColor(Color.BLUE);
         for (Projectile projectile : level.getProjectiles()) {
-            g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
+            // g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
+            g.fillOval(projectile.getX(), projectile.getY(), 10, 10);
         }
     }
 
@@ -86,7 +99,9 @@ public class Render {
         Graphics g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Arial", Font.BOLD, 25));
-        g2d.drawString("coins: " + shopManager.getCoins(),600,30);
+        g2d.drawString("coins: " + shopManager.getCoins(), 600, 30);
 
     }
+
+
 }
