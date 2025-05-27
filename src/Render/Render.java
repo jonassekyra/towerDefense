@@ -81,7 +81,6 @@ public class Render {
     public void renderProjectile(Graphics g, Level level) {
         g.setColor(Color.BLUE);
         for (Projectile projectile : level.getProjectiles()) {
-            // g.fillRect(projectile.getX(), projectile.getY(), 10, 10);
             g.fillOval(projectile.getX(), projectile.getY(), 10, 10);
         }
     }
@@ -90,14 +89,26 @@ public class Render {
     public void drawWave(Graphics g, WaveManager waveManager) {
         g.setColor(Color.BLUE);
         g.setFont(new Font("Arial", Font.BOLD, 25));
-        g.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 60);
+        g.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 90);
     }
 
     public void drawCoins(Graphics g, ShopManager shopManager) {
-        g.setColor(Color.BLACK);
+        g.setColor(Color.YELLOW);
         g.setFont(new Font("Arial", Font.BOLD, 25));
-        g.drawString("coins: " + shopManager.getCoins(), 600, 30);
+        g.drawString("coins: " + shopManager.getCoins(), 600, 60);
 
+    }
+
+    public void drawHealth(Graphics g, Game game) {
+        g.setColor(Color.RED);
+        g.setFont(new Font("Arial", Font.BOLD, 25));
+        g.drawString("Hp: " + game.getHealth(), 600, 30);
+    }
+
+    public void drawInfo(Graphics g, Game game,ShopManager shopManager,WaveManager waveManager) {
+        drawCoins(g, shopManager);
+        drawHealth(g, game);
+        drawWave(g,waveManager);
     }
 
 
