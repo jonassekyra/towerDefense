@@ -31,6 +31,22 @@ public class Enemy {
     private Color color;
     private int reward;
 
+
+    public void doDamage(Game game) {
+        int temp = game.getHealth() - damage;
+        game.setHealth(temp);
+
+    }
+
+
+    //region Set&Get
+    public void takeDamage(int damage) {
+        if (isAlive()) {
+            health -= damage;
+        }
+    }
+
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -70,12 +86,6 @@ public class Enemy {
         return visitedLocations;
     }
 
-    public void doDamage(Game game) {
-        int temp = game.getHealth() - damage;
-        game.setHealth(temp);
-
-    }
-
     public EnemyType getEnemyType() {
         return enemyType;
     }
@@ -84,11 +94,6 @@ public class Enemy {
         this.enemyType = enemyType;
     }
 
-    public void takeDamage(int damage) {
-        if (isAlive()) {
-            health -= damage;
-        }
-    }
 
     public boolean isAlive() {
         return health > 0;
@@ -102,7 +107,6 @@ public class Enemy {
         Enemy enemy = (Enemy) o;
         return Objects.equals(visitedLocations, enemy.visitedLocations);
     }
-
 
 
     @Override
@@ -165,7 +169,6 @@ public class Enemy {
     public void setTargetY(int targetY) {
         this.targetY = targetY;
     }
-
 
 
     public void setDamage(int damage) {
@@ -236,5 +239,6 @@ public class Enemy {
     public void setReward(int reward) {
         this.reward = reward;
     }
+    //endregion
 }
 
