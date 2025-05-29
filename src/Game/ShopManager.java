@@ -11,7 +11,6 @@ public class ShopManager implements Resettable {
            coins -= tower.getCost();
             return true;
        }else {
-           System.out.println("insufficient funds");
            return false;
        }
 

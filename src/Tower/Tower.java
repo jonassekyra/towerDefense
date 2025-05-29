@@ -76,8 +76,13 @@ public abstract class Tower {
         return cost;
     }
 
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
 
-
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
 
     public void canAttack(Level level, ShopManager shopManager) {
         //https://gamedev.stackexchange.com/questions/158616/how-do-i-create-a-delay-or-cooldown-timer

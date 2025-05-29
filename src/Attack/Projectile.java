@@ -3,14 +3,14 @@ package Attack;
 import Enemy.Enemy;
 
 public class Projectile {
-private int x;
-private int y;
-private final int speed;
-private final int targetX;
-private final int targetY;
-private final int damage;
-private final boolean isSlowing;
-private boolean active;
+    private int damage;
+    private int x;
+    private int y;
+    private int speed;
+    private int targetX;
+    private int targetY;
+    private boolean isSlowing;
+    private boolean active;
 
 
     public Projectile(int x, int y, int speed, int targetX, int targetY, int damage, boolean isSlowing) {
@@ -24,8 +24,8 @@ private boolean active;
         this.active = true;
     }
 
-    public void update(){
-        if(!active){
+    public void update() {
+        if (!active) {
 
             return;
         }
@@ -34,7 +34,7 @@ private boolean active;
         int directionY = targetY - y;
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
-        if(distance < speed){
+        if (distance < speed) {
             x = directionX;
             y = directionY;
             active = false;
@@ -43,20 +43,20 @@ private boolean active;
 
         }
 
-        double vekX = (double) directionX /distance;
-        double vekY = (double) directionY /distance;
+        double vekX = (double) directionX / distance;
+        double vekY = (double) directionY / distance;
 
-        x +=(int)(vekX*speed);
-        y +=(int)(vekY*speed);
+        x += (int) (vekX * speed);
+        y += (int) (vekY * speed);
 
     }
 
-    public boolean hasHit(Enemy enemy){
+    public boolean hasHit(Enemy enemy) {
         int projectileCenterX = this.x;
         int projectileCenterY = this.y;
 
-        int enemyCenterX = enemy.getPixelX() + 75/2;
-        int enemyCenterY = enemy.getPixelY() + 75/2;
+        int enemyCenterX = enemy.getPixelX() + 75 / 2;
+        int enemyCenterY = enemy.getPixelY() + 75 / 2;
 
 
         int directionX = projectileCenterX - enemyCenterX;
@@ -66,7 +66,7 @@ private boolean active;
         double enemyRadius = 37.5;
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
-        return distance<(enemyRadius + projectileRadius);
+        return distance < (enemyRadius + projectileRadius);
     }
 
     public boolean isSlowing() {
@@ -84,7 +84,6 @@ private boolean active;
     }
 
 
-
     public int getY() {
         return y;
     }
@@ -95,5 +94,16 @@ private boolean active;
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Projectile() {
     }
 }

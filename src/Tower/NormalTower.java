@@ -10,4 +10,6 @@ public class NormalTower extends Tower {
         super(damage, image, rangeX, rangeY, posX, posY,attackStrategy,cooldown, cost);
     }
 
+    public NormalTower() {
+    }
 }
