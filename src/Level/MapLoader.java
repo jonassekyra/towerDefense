@@ -37,8 +37,8 @@ public class MapLoader {
     public void createTiles() {
 
         try {
-            tileTypes.put("path", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/Tiles/brown.png"))), TileType.PATH));
-            tileTypes.put("grass", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/Tiles/zelena.png"))), TileType.GRASS));
+            tileTypes.put("path", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/path.png"))), TileType.PATH));
+            tileTypes.put("grass", new Tile(ImageIO.read(Objects.requireNonNull(Tile.class.getResource("/grass.png"))), TileType.GRASS));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -50,9 +50,9 @@ public class MapLoader {
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
-                if (line.charAt(0) == '9') {
+                if (line.charAt(0) == '#') {
                     String[] split = line.split("=");
-                    if (split[0].equals("9startPosition")) {
+                    if (split[0].equals("#startPosition")) {
                         startPosition = new Position(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
                     } else {
                         endPosition = new Position(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
@@ -63,11 +63,11 @@ public class MapLoader {
                     for (int i = 0; i < split.length; i++) {
                         switch (split[i]) {
                             case "0":
-                                tiles[i][row] = tileTypes.get("path");
+                                tiles[i][row] = tileTypes.get("grass");
                                 map[i][row] = 0;
                                 break;
                             case "1":
-                                tiles[i][row] = tileTypes.get("grass");
+                                tiles[i][row] = tileTypes.get("path");
                                 map[i][row] = 1;
                                 break;
                         }
