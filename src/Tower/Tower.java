@@ -37,6 +37,7 @@ public abstract class Tower {
         this.cost = cost;
     }
 
+
     public int getRangeX() {
         return rangeX;
     }
@@ -49,7 +50,6 @@ public abstract class Tower {
     public int getPosX() {
         return posX;
     }
-
 
 
     public int getPosY() {
@@ -91,14 +91,14 @@ public abstract class Tower {
     public static Tower createTower(int type, int posX, int posY) throws IOException {
         return switch (type) {
             case 1 -> {
-                BufferedImage image = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/tiles/Red.png")));
+                BufferedImage image = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/normal_tower.png")));
 
                 yield new NormalTower(20, image, 3, 3, posX, posY, new SingleAttack(), 750, 50);
             }
             case 2 -> {
-                BufferedImage image1 = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/tiles/Red.png")));
+                BufferedImage image1 = ImageIO.read(Objects.requireNonNull(Tower.class.getResource("/slow_tower.png")));
 
-                yield new SlowTower(10, image1, 3, 3, posX, posY, new SlowAttack(), 2000, 100);
+                yield new SlowTower(1, image1, 3, 3, posX, posY, new SlowAttack(), 2000, 100);
             }
             default -> null;
         };
