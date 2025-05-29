@@ -1,27 +1,23 @@
 package Game;
 
-import Panels.EndPanel;
-import Panels.GamePanel;
-import Panels.StartPanel;
-import Panels.TowerMenu;
+import Panels.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    GamePanel gamePanel;
-    TowerMenu towerMenu;
-    StartPanel startPanel;
-    Game game;
+    private final GamePanel gamePanel;
+    private final TowerMenu towerMenu;
+    private final Game game;
     private GameState gameState;
-    private JPanel panels;
-    CardLayout cardLayout;
-    private JPanel towerGamePanel;
-    private EndPanel endPanel;
-    WaveManager waveManager;
+    private final JPanel panels;
+    private final CardLayout cardLayout;
+    private final JPanel towerGamePanel;
+    private final WaveManager waveManager;
 
 
     public MainFrame() {
+
         waveManager = new WaveManager();
         game = new Game();
         game.setHealth(100);
@@ -33,8 +29,9 @@ public class MainFrame extends JFrame {
 
         towerMenu = new TowerMenu(this, waveManager);
         gamePanel = new GamePanel(game, towerMenu, this, waveManager, game.getShopManager());
-        endPanel = new EndPanel();
-        startPanel = new StartPanel(this);
+        EndPanel endPanel = new EndPanel();
+        GameOverPanel gameOverPanel = new GameOverPanel(this);
+        StartPanel startPanel = new StartPanel(this);
 
         towerGamePanel = new JPanel();
         towerGamePanel.setLayout(new BorderLayout());
@@ -44,6 +41,7 @@ public class MainFrame extends JFrame {
         panels.add(startPanel, GameState.START.name());
         panels.add(towerGamePanel, GameState.PLAY.name());
         panels.add(endPanel, GameState.END.name());
+        panels.add(gameOverPanel,GameState.GAME_OVER.name());
 
 
         this.setLayout(new BorderLayout());
@@ -63,23 +61,41 @@ public class MainFrame extends JFrame {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
-        if (gameState == null) {
-            System.out.println("Game state is null");
-        }
         switch (gameState) {
             case PLACING_TOWER:
                 break;
-            case START, END:
+            case START:
                 cardLayout.show(panels, gameState.name());
+                System.out.println(gameState.name());
                 break;
             case PLAY:
                 cardLayout.show(panels, gameState.name());
                 gamePanel.startGame();
+                break;
+            case END, GAME_OVER:
+                cardLayout.show(panels, gameState.name());
                 break;
         }
     }
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void restartGame() {
+
+        towerGamePanel.remove(gamePanel);
+
+        GamePanel gamePanel = new GamePanel(game, towerMenu, this, waveManager, game.getShopManager());
+        towerGamePanel.add(gamePanel,BorderLayout.CENTER);
+        game.reset();
+        waveManager.reset();
+        revalidate();
+        repaint();
+        gamePanel.startGame();
     }
 }
