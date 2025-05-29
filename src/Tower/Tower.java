@@ -11,10 +11,19 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Abstract Tower class used to create Child towers using factory method.
+ */
 public abstract class Tower {
     protected int damage;
     protected BufferedImage image;
+    /**
+     * X position of the tower on a map.
+     */
     protected int rangeX;
+    /**
+     * Y position of the tower on a map.
+     */
     protected int rangeY;
     protected int cost;
     protected int posX;
@@ -84,6 +93,11 @@ public abstract class Tower {
         this.posY = posY;
     }
 
+    /**
+     * Checks if the cooldown for attacking has ended.
+     * @param level current level.
+     * @param shopManager ShopManager containing coins.
+     */
     public void canAttack(Level level, ShopManager shopManager) {
         //https://gamedev.stackexchange.com/questions/158616/how-do-i-create-a-delay-or-cooldown-timer
         long now = System.currentTimeMillis();
@@ -93,6 +107,15 @@ public abstract class Tower {
         }
     }
 
+    /**
+     * Factory method that creates specific towers.
+     * Loads picture of the tower from resources.
+     * @param type type of tower, 1 = normal, 2 = slow
+     * @param posX X position of the tower on a map.
+     * @param posY  position of the tower on a map.
+     * @return Returns created tower.
+     * @throws IOException If the Image is missing or cannot be found.
+     */
     public static Tower createTower(int type, int posX, int posY) throws IOException {
         return switch (type) {
             case 1 -> {

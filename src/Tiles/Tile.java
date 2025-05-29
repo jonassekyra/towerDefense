@@ -2,9 +2,12 @@ package Tiles;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Tile used for creating a map.
+ */
 public class Tile {
-    private BufferedImage image;
-    private TileType tileType;
+    private final BufferedImage image;
+    private final TileType tileType;
 
     public Tile(BufferedImage image, TileType tileType) {
         this.image = image;
@@ -15,12 +18,4 @@ public class Tile {
         return image;
     }
 
-
-    @Override
-    public String toString() {
-        return "Tiles.Tile{" +
-                "image=" + image +
-                ", tileType=" + tileType +
-                '}';
-    }
 }

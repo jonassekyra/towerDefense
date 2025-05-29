@@ -12,7 +12,9 @@ import Enemy.EnemyManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+/**
+ * Holds map, enemies, and projectiles.
+ */
 public class Level {
     private final Tile[][] tiles;
     private final int[][] map;
@@ -36,6 +38,11 @@ public class Level {
         return projectiles;
     }
 
+    /**
+     * Removes inactive projectiles.
+     * Checks if any projectile has hit any enemy.
+     * If possible applies slow effect.
+     */
     public void updateProjectiles() {
 
         Iterator<Projectile> iterator = projectiles.iterator();
@@ -49,7 +56,6 @@ public class Level {
             for (Enemy enemy : enemyManager.getEnemies()) {
                 if (projectile.hasHit(enemy)){
                     if (projectile.isSlowing()){
-                        //enemy.setSpeed(1);
                         enemy.applySlow(1,2000);
                     }
                     enemy.takeDamage(projectile.getDamage());

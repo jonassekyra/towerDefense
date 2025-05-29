@@ -14,6 +14,9 @@ import Level.Level;
 import Tower.TowerManager;
 import Game.WaveManager;
 
+/**
+ * Management of all methods that draw something on game panel.
+ */
 public class Render {
     EnemyManager enemyManager;
     Movement movement;
@@ -25,6 +28,11 @@ public class Render {
         this.level = level;
     }
 
+    /**
+     *Draws all enemies and their health bars.
+     * @param g Graphics g.
+     * @param game Game that stores players lives.
+     */
     public void drawEnemy(Graphics g, Game game) {
         Graphics2D g2D = (Graphics2D) g;
         Iterator<Enemy> it = enemyManager.getEnemies().iterator();
@@ -56,6 +64,11 @@ public class Render {
         }
     }
 
+    /**
+     * Draws all the tiles(grass, path).
+     * @param g Graphics g;
+     * @param level Current level, containing map.
+     */
     public void drawLevel(Graphics g, Level level) {
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < level.getTiles().length; i++) {
@@ -66,6 +79,12 @@ public class Render {
 
     }
 
+    /**
+     * Draws towers.
+     * @param g Graphics.
+     * @param level Current level, containing map.
+     * @param towerManager TowerManager containing towers.
+     */
     public void drawTowers(Graphics g, Level level, TowerManager towerManager) {
         Graphics2D g2d = (Graphics2D) g;
         for (int i = 0; i < level.getMap().length; i++) {
@@ -78,6 +97,11 @@ public class Render {
         }
     }
 
+    /**
+     * Draws projectiles.
+     * @param g Graphics.
+     * @param level Current level, containing projectiles.
+     */
     public void renderProjectile(Graphics g, Level level) {
         g.setColor(Color.BLUE);
         for (Projectile projectile : level.getProjectiles()) {
@@ -86,12 +110,22 @@ public class Render {
     }
 
 
+    /**
+     * Draws current wave.
+     * @param g Graphics.
+     * @param waveManager WaveManager used for getting to info about waves.
+     */
     public void drawWave(Graphics g, WaveManager waveManager) {
         g.setColor(Color.BLUE);
         g.setFont(new Font("Arial", Font.BOLD, 25));
         g.drawString("wave: " + (waveManager.getCurrentWave() + 1) + "/" + waveManager.getWaves().size(), 600, 90);
     }
 
+    /**
+     * Draws number of coins the player has.
+     * @param g Graphics.
+     * @param shopManager Class responsible for keeping track of coins.
+     */
     public void drawCoins(Graphics g, ShopManager shopManager) {
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Arial", Font.BOLD, 25));
@@ -99,12 +133,24 @@ public class Render {
 
     }
 
+    /**
+     * Draws the amount of lives the player has.
+     * @param g Graphics.
+     * @param game Game containing health.
+     */
     public void drawHealth(Graphics g, Game game) {
         g.setColor(Color.RED);
         g.setFont(new Font("Arial", Font.BOLD, 25));
         g.drawString("Hp: " + game.getHealth(), 600, 30);
     }
 
+    /**
+     * Calls draw health, coins and wave.
+     * @param g Graphics.
+     * @param game Game containing health.
+     * @param shopManager Class responsible for keeping track of coins.
+     * @param waveManager WaveManager used for getting to info about waves.
+     */
     public void drawInfo(Graphics g, Game game,ShopManager shopManager,WaveManager waveManager) {
         drawCoins(g, shopManager);
         drawHealth(g, game);

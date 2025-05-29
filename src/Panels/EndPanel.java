@@ -6,10 +6,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Panel that is shown when the game is finished.
+ */
 public class EndPanel extends JPanel {
 
-    private final Image  background;
+    private final Image background;
 
+    /**
+     * Loading Image from resources.
+     */
     public EndPanel() {
 
         setPreferredSize(new Dimension(750, 750));
@@ -22,7 +28,10 @@ public class EndPanel extends JPanel {
         }
     }
 
-
+    /**
+     * Drawing the background image.
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

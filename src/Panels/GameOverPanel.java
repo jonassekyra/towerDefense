@@ -9,9 +9,17 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Panel that is shown when the player loses the game.
+ */
 public class GameOverPanel extends JPanel {
     private final Image background;
 
+    /**
+     * Adding restart button.
+     * Loading Image from resources.
+     * @param mainFrame Main frame of the game.
+     */
     public GameOverPanel(MainFrame mainFrame) {
         setLayout(null);
         setPreferredSize(new Dimension(750, 750));
@@ -30,12 +38,16 @@ public class GameOverPanel extends JPanel {
 
         restartButton.addActionListener(e -> {
             mainFrame.restartGame();
-            mainFrame.setGameState(GameState.START);
+            mainFrame.switchPanels(GameState.START);
         });
 
 
     }
 
+    /**
+     * Drawing the background image.
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -14,8 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+/**
+ * Panel on which the game itself is shown(map,enemies,towers,etc...)
+ */
 public class GamePanel extends JPanel {
-
+    /**
+     * Timer that controls how often the game is refreshed.
+     */
     private final Timer timer;
     private final Game game;
     private final TowerManager towerManager;
@@ -23,10 +28,23 @@ public class GamePanel extends JPanel {
     private boolean running = false;
     private final MainFrame mainFrame;
     private final Level level;
+    /**
+     * Class where all the render methods are.
+     */
     private final Render render;
 
 
-
+    /**
+     * Creating instances.
+     * Creating Timer.
+     * Mouse Listener that checks where the player clicked, whether, if the player can place a tower there.
+     *
+     * @param game Game containing health.
+     * @param towerMenu TowerMenu used to get selected tower.
+     * @param mainFrame MainFrame Main frame of the game.
+     * @param waveManager WaveManager used for getting to info about waves.
+     * @param shopManager Class responsible for keeping track of coins.
+     */
     public GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager, ShopManager shopManager) {
         this.level = new Level(shopManager);
         this.waveManager = waveManager;
@@ -34,6 +52,7 @@ public class GamePanel extends JPanel {
         this.mainFrame = mainFrame;
         towerManager = new TowerManager(game);
         this.render = new Render(level.getEnemyManager(), level.getMovement(), level);
+
 
         this.setPreferredSize(new Dimension(750, 750));
         this.setVisible(true);
@@ -104,13 +123,17 @@ public class GamePanel extends JPanel {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                mainFrame.setGameState(GameState.PLAY);
+                mainFrame.switchPanels(GameState.PLAY);
 
 
             }
         });
     }
 
+    /**
+     * Calls render methods.
+     * @param g  the <code>Graphics</code> context in which to paint
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -123,8 +146,14 @@ public class GamePanel extends JPanel {
         render.drawEnemy(g2d, game);
 
 
+
     }
 
+    /**
+     * Calls methods for: spawning enemies, removing slow effect, updates towers, projectiles.
+     * Ends timer when the game stops.
+     * @param e event e.
+     */
     public void actionPerformed(ActionEvent e) {
         if (waveManager.getCurrentWave() < waveManager.getWaves().size()) {
             level.getEnemyManager().spawnEnemy(waveManager.getWaves().get(waveManager.getCurrentWave()));
@@ -139,10 +168,14 @@ public class GamePanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Start timer after 5 seconds.
+     * Delay timer doesn't repeat.
+     */
     public void startGame() {
         if (!running) {
             running = true;
-            Timer deleyTimer = new Timer(500, e -> timer.start());
+            Timer deleyTimer = new Timer(5000, e -> timer.start());
             deleyTimer.setRepeats(false);
             deleyTimer.start();
 
@@ -152,4 +185,5 @@ public class GamePanel extends JPanel {
     public Level getLevel() {
         return level;
     }
+
 }

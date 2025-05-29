@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Loads map from a file.
+ */
 public class MapLoader {
     private Position startPosition;
     private Position endPosition;
@@ -31,9 +34,19 @@ public class MapLoader {
     }
 
     HashMap<String, Tile> tileTypes = new HashMap<>();
+    /**
+     * Map of 1 and 0 that the enemy uses to navigate.
+     */
     int[][] map = new int[10][10];
+    /**
+     * Map of Tiles.
+     */
     private final Tile[][] tiles = new Tile[10][10];
 
+    /**
+     * Creates path and grass tiles from pictures.
+     * Adds them to HashMap.
+     */
     public void createTiles() {
 
         try {
@@ -45,6 +58,9 @@ public class MapLoader {
         }
     }
 
+    /**
+     * Loads both maps and start, end positions from a file.
+     */
     public void loadLevel() {
         try (BufferedReader br = new BufferedReader(new FileReader("Map.txt"))) {
             String line;
