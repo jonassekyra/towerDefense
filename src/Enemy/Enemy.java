@@ -14,6 +14,7 @@ public class Enemy {
     private int pixelX;
     private int pixelY;
     private int speed;
+    private int baseSpeed;
     private int targetX;
     private int targetY;
     private int endX;
@@ -27,6 +28,7 @@ public class Enemy {
     private Direction direction;
     private EnemyType enemyType;
     private long spawnCooldown;
+    private long slowCooldown;
     private int progress;
     private Color color;
     private int reward;
@@ -38,8 +40,29 @@ public class Enemy {
 
     }
 
+    public void applySlow(int slow,long durationMs) {
+        this.speed = slow;
+        this.slowCooldown = System.currentTimeMillis() +  durationMs;
+    }
+
+
+
 
     //region Set&Get
+
+
+    public long getSlowCooldown() {
+        return slowCooldown;
+    }
+
+    public int getBaseSpeed() {
+        return baseSpeed;
+    }
+
+    public void setBaseSpeed(int baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
     public void takeDamage(int damage) {
         if (isAlive()) {
             health -= damage;
