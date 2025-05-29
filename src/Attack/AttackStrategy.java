@@ -6,7 +6,7 @@ import Tower.Tower;
 
 public interface AttackStrategy {
 
-    public void attack(Level level, Tower tower, ShopManager shopManager);
+    void attack(Level level, Tower tower, ShopManager shopManager);
 
 
 

@@ -38,7 +38,7 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(750, 750));
         this.setVisible(true);
 
-        shopManager.setCoins(650);
+        shopManager.setCoins(400);
 
         waveManager.setEnemyManager(level.getEnemyManager());
 
@@ -59,6 +59,9 @@ public class GamePanel extends JPanel {
                     return;
                 }
                 if (!(level.getMap()[tileX][tileY] != 1 && (tileX < 10 && tileY < 10))) {
+                    return;
+                }
+                if (towerManager.getTowers()[tileX][tileY] != null) {
                     return;
                 }
                 try {
@@ -116,8 +119,7 @@ public class GamePanel extends JPanel {
         render.drawLevel(g2d, level);
         render.drawTowers(g2d, level, towerManager);
         render.renderProjectile(g2d, level);
-        render.drawWave(g2d, waveManager);
-        render.drawCoins(g2d,game.getShopManager());
+        render.drawInfo(g2d,game, game.getShopManager(), waveManager);
         render.drawEnemy(g2d, game);
 
 
@@ -127,6 +129,7 @@ public class GamePanel extends JPanel {
         if (waveManager.getCurrentWave() < waveManager.getWaves().size()) {
             level.getEnemyManager().spawnEnemy(waveManager.getWaves().get(waveManager.getCurrentWave()));
         }
+        level.getEnemyManager().removeSlow(waveManager.getWaves().get(waveManager.getCurrentWave()));
         towerManager.updateTowers(level);
         level.updateProjectiles();
         if (waveManager.endGame(mainFrame)) {
