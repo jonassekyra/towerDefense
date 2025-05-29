@@ -49,7 +49,8 @@ public class Level {
             for (Enemy enemy : enemyManager.getEnemies()) {
                 if (projectile.hasHit(enemy)){
                     if (projectile.isSlowing()){
-                        enemy.setSpeed(1);
+                        //enemy.setSpeed(1);
+                        enemy.applySlow(1,2000);
                     }
                     enemy.takeDamage(projectile.getDamage());
                     AttackUtils.removeDeadEnemy(enemyManager.getEnemies(),shopManager,enemy);
