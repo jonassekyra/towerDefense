@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import Enemy.*;
 
 
-public class WaveManager {
+public class WaveManager implements Resettable{
     private int currentWave;
     private int numberOfWaves;
     private final ArrayList<Wave> waves = new ArrayList<>();
@@ -25,7 +25,7 @@ public class WaveManager {
     }
 
     public void loadEnemies() {
-        try (BufferedReader br = new BufferedReader(new FileReader("Enemies1"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("enemies.txt"))) {
             String line;
             Wave wave = new Wave();
             while ((line = br.readLine()) != null) {
@@ -77,8 +77,19 @@ public class WaveManager {
             System.out.println("game has ended");
             mainFrame.setGameState(GameState.END);
             return true;
-        } else {
+        } else if (mainFrame.getGame().getHealth() <= 0) {
+            mainFrame.setGameState(GameState.GAME_OVER);
+            return true;
+        }else {
             return false;
         }
+    }
+
+    @Override
+    public void reset() {
+        currentWave = 0;
+        waves.clear();
+        loadEnemies();
+
     }
 }

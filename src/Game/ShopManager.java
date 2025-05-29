@@ -3,7 +3,7 @@ package Game;
 import Enemy.Enemy;
 import Tower.Tower;
 
-public class ShopManager {
+public class ShopManager implements Resettable {
     private int coins;
 
    public boolean buyTower(Tower tower) {
@@ -27,5 +27,10 @@ public class ShopManager {
 
     public void addCoins(Enemy enemy) {
        coins += enemy.getReward();
+    }
+
+    @Override
+    public void reset() {
+        setCoins(400);
     }
 }

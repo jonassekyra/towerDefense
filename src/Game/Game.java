@@ -1,6 +1,6 @@
 package Game;
 
-public class Game {
+public class Game implements Resettable {
     private int health;
     private final ShopManager shopManager;
 
@@ -13,10 +13,6 @@ public class Game {
     }
 
 
-
-
-
-
     public int getHealth() {
         return health;
     }
@@ -25,5 +21,8 @@ public class Game {
         this.health = health;
     }
 
-
+    @Override
+    public void reset() {
+        setHealth(100);
+    }
 }
