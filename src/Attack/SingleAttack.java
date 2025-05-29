@@ -9,10 +9,19 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+/**
+ * Defines single attack behavior.
+ */
 public class SingleAttack implements AttackStrategy {
     public SingleAttack() {
     }
 
+    /**
+     * fires projectile at the furthest enemy.
+     * @param level Current level.
+     * @param tower Tower that will shoot.
+     * @param shopManager Class responsible for keeping track of coins.
+     */
     @Override
     public void attack(Level level, Tower tower, ShopManager shopManager) {
         ArrayList<Enemy> enemies = level.getEnemyManager().getEnemies();

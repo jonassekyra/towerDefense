@@ -2,14 +2,41 @@ package Attack;
 
 import Enemy.Enemy;
 
+/**
+ * Represents projectile that moves towards an enemy.
+ */
 public class Projectile {
+    /**
+     * Damage dealt by the projectile(loaded from tower).
+     */
     private int damage;
+    /**
+     * X position.
+     */
     private int x;
+    /**
+     * Y position.
+     */
     private int y;
+    /**
+     * Speed of the projectile.
+     */
     private int speed;
+    /**
+     * Target X location.
+     */
     private int targetX;
+    /**
+     * Target Y location.
+     */
     private int targetY;
+    /**
+     * Controls if the projectile should slow down enemies.
+     */
     private boolean isSlowing;
+    /**
+     * Controls if the projectile can be removed.
+     */
     private boolean active;
 
 
@@ -24,6 +51,9 @@ public class Projectile {
         this.active = true;
     }
 
+    /**
+     * Update method moves the x,y location until the projectile gets close to the target, then deactivates the target.
+     */
     public void update() {
         if (!active) {
 
@@ -34,9 +64,10 @@ public class Projectile {
         int directionY = targetY - y;
 
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
+
         if (distance < speed) {
-            x = directionX;
-            y = directionY;
+            x = targetX;
+            y = targetY;
             active = false;
 
             return;
@@ -51,6 +82,11 @@ public class Projectile {
 
     }
 
+    /**
+     * hasHit method checks if the projectile is within the radius of the enemy.
+     * @param enemy that is being checked for hit.
+     * @return true if the distance of the projectile from enemy is smaller than their radii combined.
+     */
     public boolean hasHit(Enemy enemy) {
         int projectileCenterX = this.x;
         int projectileCenterY = this.y;
@@ -68,6 +104,8 @@ public class Projectile {
         double distance = Math.sqrt(Math.pow(directionX, 2) + Math.pow(directionY, 2));
         return distance < (enemyRadius + projectileRadius);
     }
+
+    //region set&get
 
     public boolean isSlowing() {
         return isSlowing;
@@ -106,4 +144,5 @@ public class Projectile {
 
     public Projectile() {
     }
+    //endregion
 }

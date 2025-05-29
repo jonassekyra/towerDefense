@@ -1,6 +1,12 @@
 package Game;
 
+/**
+ * Hold ShopManager and health.
+ */
 public class Game implements Resettable {
+    /**
+     * Players health.
+     */
     private int health;
     private final ShopManager shopManager;
 
@@ -21,6 +27,9 @@ public class Game implements Resettable {
         this.health = health;
     }
 
+    /**
+     * Sets health back to 100.
+     */
     @Override
     public void reset() {
         setHealth(100);

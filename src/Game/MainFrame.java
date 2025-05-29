@@ -5,6 +5,9 @@ import Panels.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * MainFrame is the main window in which different panels are.
+ */
 public class MainFrame extends JFrame {
     private final GamePanel gamePanel;
     private final TowerMenu towerMenu;
@@ -15,7 +18,10 @@ public class MainFrame extends JFrame {
     private final JPanel towerGamePanel;
     private final WaveManager waveManager;
 
-
+    /**
+     * Constructor that adds panels, creates instances of classes.
+     * Adds panels to HashMap so they can be easily switched based on gameState.
+     */
     public MainFrame() {
 
         waveManager = new WaveManager();
@@ -29,6 +35,7 @@ public class MainFrame extends JFrame {
 
         towerMenu = new TowerMenu(this, waveManager);
         gamePanel = new GamePanel(game, towerMenu, this, waveManager, game.getShopManager());
+
         EndPanel endPanel = new EndPanel();
         GameOverPanel gameOverPanel = new GameOverPanel(this);
         StartPanel startPanel = new StartPanel(this);
@@ -52,28 +59,28 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        setGameState(GameState.START);
+        switchPanels(GameState.START);
         this.pack();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
     }
 
-    public void setGameState(GameState gameState) {
+    /**
+     * Switches between  panels based on gameState.
+     * @param gameState Current GameState.
+     */
+    public void switchPanels(GameState gameState) {
         this.gameState = gameState;
         switch (gameState) {
             case PLACING_TOWER:
                 break;
-            case START:
+            case START, END, GAME_OVER:
                 cardLayout.show(panels, gameState.name());
-                System.out.println(gameState.name());
                 break;
             case PLAY:
                 cardLayout.show(panels, gameState.name());
                 gamePanel.startGame();
-                break;
-            case END, GAME_OVER:
-                cardLayout.show(panels, gameState.name());
                 break;
         }
     }
@@ -86,6 +93,9 @@ public class MainFrame extends JFrame {
         return game;
     }
 
+    /**
+     * Calls all the different restart methods in order to reset the game.
+     */
     public void restartGame() {
 
         towerGamePanel.remove(gamePanel);
@@ -98,4 +108,5 @@ public class MainFrame extends JFrame {
         repaint();
         gamePanel.startGame();
     }
+
 }

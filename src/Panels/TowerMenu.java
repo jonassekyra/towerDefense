@@ -26,6 +26,7 @@ public class TowerMenu extends JPanel {
 
     public TowerMenu(MainFrame mainFrame, WaveManager waveManager) {
 
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setVisible(true);
         setBackground(Color.GRAY);
@@ -66,17 +67,24 @@ public class TowerMenu extends JPanel {
 
 
         normalTower.addActionListener(e -> {
-            mainFrame.setGameState(GameState.PLACING_TOWER);
+            mainFrame.switchPanels(GameState.PLACING_TOWER);
             selectTower(normalTower.getName());
 
 
         });
         slowTower.addActionListener(e -> {
-            mainFrame.setGameState(GameState.PLACING_TOWER);
+            mainFrame.switchPanels(GameState.PLACING_TOWER);
             selectTower(slowTower.getName());
         });
 
-        nextWave.addActionListener(e -> waveManager.nextWave());
+        nextWave.addActionListener(e -> {
+             waveManager.nextWave();
+
+
+
+        });
+
+
     }
 
     public void selectTower(String towerName) {

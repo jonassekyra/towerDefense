@@ -4,8 +4,11 @@ import Enemy.Enemy;
 
 import java.util.ArrayList;
 
+/**
+ * Wave with List of enemies.
+ */
 public class Wave {
-    private ArrayList<Enemy> enemiesInWave = new ArrayList<>();
+    private final ArrayList<Enemy> enemiesInWave = new ArrayList<>();
     private int spawnedEnemies = 0;
 
     public int getSpawnedEnemies() {

@@ -3,52 +3,127 @@ package Enemy;
 import Game.Game;
 import Position.Position;
 
-
 import java.awt.*;
 import java.util.HashSet;
-import java.util.Objects;
 
+/**
+ * Represents an enemy in the game.
+ * Tracks all necessary attributes.
+ */
 public class Enemy {
+    /**
+     * X position on a map.
+     */
     private int x;
+    /**
+     * Y position on a map.
+     */
     private int y;
+    /**
+     * X position in pixels.
+     */
     private int pixelX;
+    /**
+     * Y position in pixels.
+     */
     private int pixelY;
+    /**
+     * Current speed of an enemy.
+     */
     private int speed;
+    /**
+     * Default speed.
+     */
     private int baseSpeed;
+    /**
+     * X location in pixels the enemy is traveling to.
+     */
     private int targetX;
+    /**
+     * Y location in pixels the enemy is traveling to.
+     */
     private int targetY;
+    /**
+     * End X location on a map.
+     */
     private int endX;
+    /**
+     * End Y location on a map.
+     */
     private int endY;
     private boolean hasStarted = false;
     private boolean hasEnded = false;
     private final HashSet<Position> visitedLocations = new HashSet<>();
+    /**
+     * Damage that the enemy does to the player's health.
+     */
     private int damage;
+    /**
+     * Current health.
+     */
     private int health;
     private int maxHealth;
+    /**
+     * Direction the enemy is traveling(LEFT,RIGHT,UP,DOWN).
+     */
     private Direction direction;
+    /**
+     * Type of enemy(Normal, Fast.....)
+     */
     private EnemyType enemyType;
+    /**
+     * Time it takes to spawn after the previous enemy.
+     */
     private long spawnCooldown;
+    /**
+     * How long will the enemy be slowed down for.
+     */
     private long slowCooldown;
+    /**
+     * Progress on the map.
+     */
     private int progress;
     private Color color;
+    /**
+     * Amount of coins that is given to the player after killing the enemy.
+     */
     private int reward;
 
-
+    /**
+     * Deals damage to the player.
+     * @param game Reference to the game in which players health is kept.
+     */
     public void doDamage(Game game) {
         int temp = game.getHealth() - damage;
         game.setHealth(temp);
 
     }
 
+    /**
+     * Applies slow effect to the enemy.
+     * @param slow Speed at which the enemy will be traveling.
+     * @param durationMs Duration of the speed effect.
+     */
     public void applySlow(int slow,long durationMs) {
         this.speed = slow;
         this.slowCooldown = System.currentTimeMillis() +  durationMs;
+    }
+
+    /**
+     * Damages the enemy.
+     * @param damage Amount of damage the enemy should take.
+     */
+    public void takeDamage(int damage) {
+        if (isAlive()) {
+            health -= damage;
+        }
     }
 
 
 
 
     //region Set&Get
+
 
 
     public long getSlowCooldown() {
@@ -63,11 +138,7 @@ public class Enemy {
         this.baseSpeed = baseSpeed;
     }
 
-    public void takeDamage(int damage) {
-        if (isAlive()) {
-            health -= damage;
-        }
-    }
+
 
 
     public int getMaxHealth() {
@@ -121,20 +192,6 @@ public class Enemy {
     public boolean isAlive() {
         return health > 0;
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Enemy enemy = (Enemy) o;
-        return Objects.equals(visitedLocations, enemy.visitedLocations);
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(visitedLocations);
     }
 
     public Direction getDirection() {

@@ -8,11 +8,21 @@ import Game.ShopManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Defines slow attack behavior.
+ */
 public class SlowAttack implements AttackStrategy {
 
     public SlowAttack() {
     }
 
+    /**
+     * Fires slowing projectile at the furthest enemy within range of the tower.
+     * If there are no enemies in range nothing happens.
+     * @param level Current level.
+     * @param tower Tower that will shoot.
+     * @param shopManager Class responsible for keeping track of coins.
+     */
     @Override
     public void attack(Level level, Tower tower, ShopManager shopManager) {
         ArrayList<Enemy> enemies = level.getEnemyManager().getEnemies();

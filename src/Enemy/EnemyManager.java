@@ -8,10 +8,20 @@ import java.awt.*;
 
 import java.util.ArrayList;
 
-
+/**
+ * Manages enemies, their stats and spawns
+ */
 public class EnemyManager {
+
     private final MapLoader mapLoader;
+    /**
+     * Time since the last enemy was spawned.
+     */
     private long sinceLastSpawn = 0;
+    /**
+     * Arraylist of currently active enemies.
+     */
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public EnemyManager(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
@@ -19,13 +29,10 @@ public class EnemyManager {
     }
 
 
-    private final ArrayList<Enemy> enemies = new ArrayList<>();
-
-    public ArrayList<Enemy> getEnemies() {
-        return enemies;
-    }
-
-
+    /**
+     * Sets start and end positions to the enemy.
+     * @param e Enemy that is being set up.
+     */
     public void startEndPosition(Enemy e) {
 
         e.setX(mapLoader.getStartPosition().getX());
@@ -39,7 +46,11 @@ public class EnemyManager {
 
     }
 
-
+    /**
+     * Spawns enemies from wave.
+     * Only spawns when the cooldown has ended.
+     * @param wave Current wave from which enemies are being spawned.
+     */
     public void spawnEnemy(Wave wave) {
 
         long now = System.currentTimeMillis();
@@ -61,6 +72,11 @@ public class EnemyManager {
 
     }
 
+    /**
+     * Removes slow effect from enemy.
+     * Only when the timer has ended.
+     * @param wave Current wave(enemies aren't used because it would be harder to get to them).
+     */
     public void removeSlow(Wave wave) {
         long now = System.currentTimeMillis();
         for (Enemy e : wave.getEnemiesInWave()) {
@@ -71,6 +87,10 @@ public class EnemyManager {
 
     }
 
+    /**
+     * Sets stats to enemy based on its type.
+     * @param enemy Enemy that is being set up.
+     */
     public void enemyStats(Enemy enemy) {
         switch (enemy.getEnemyType()) {
             case NORMAL:
@@ -114,5 +134,13 @@ public class EnemyManager {
                 break;
 
         }
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
     }
 }
