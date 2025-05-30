@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * AttackUtils hold static methods that can be used in different attack strategies.
  */
-public class AttackUtils {
+    public class AttackUtils {
 
     /**
      * Removes the enemy from list of enemies that are alive.

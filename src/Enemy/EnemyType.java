@@ -1,5 +1,4 @@
 package Enemy;
-
 /**
  * Types of enemies.
  */

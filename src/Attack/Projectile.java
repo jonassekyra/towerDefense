@@ -52,7 +52,7 @@ public class Projectile {
     }
 
     /**
-     * Update method moves the x,y location until the projectile gets close to the target, then deactivates the target.
+     * Update method moves the x,y location until the projectile gets close to the target, then deactivates the projectile.
      */
     public void update() {
         if (!active) {
