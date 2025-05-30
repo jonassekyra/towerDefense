@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
      * @param waveManager WaveManager used for getting to info about waves.
      * @param shopManager Class responsible for keeping track of coins.
      */
-    public GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager, ShopManager shopManager) {
+    public  GamePanel(Game game, TowerMenu towerMenu, MainFrame mainFrame, WaveManager waveManager, ShopManager shopManager) {
         this.level = new Level(shopManager);
         this.waveManager = waveManager;
         this.game = game;

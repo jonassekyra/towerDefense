@@ -5,7 +5,7 @@ import Attack.AttackStrategy;
 import java.awt.image.BufferedImage;
 
 /**
- * Slow toweer
+ * Slow tower
  */
 public class SlowTower extends Tower {
     public SlowTower(int damage, BufferedImage image, int rangeX, int rangeY, int posX, int posY, AttackStrategy attackStrategy, long cooldown, int cost) {
