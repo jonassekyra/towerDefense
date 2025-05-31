@@ -2,7 +2,7 @@
   <artifact name="towerDefense:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/towerDefense_jar</output-path>
     <root id="root">
-      <element id="archive" name="towerDefense.jar">
+      <element id="archive" name="towerDefense_Sekyra.jar">
         <element id="module-output" name="towerDefense" />
       </element>
       <element id="library" level="module" name="JUnit4" module-name="towerDefense" />
